@@ -4,6 +4,10 @@
 
 ## 更新說明 ##
 
+* 1.0.1
+
+修改 readme.md
+
 * 1.0.0
 
 ## require package ##
@@ -22,19 +26,19 @@
 
 ## 指令介紹 ##
 
-@extends
+&#64;extends
 
 表示要繼承哪個樣板
 
-@section ... @show
+&#64;section ... &#64;show
 
 代表一個區段，我們給這個區段一個名稱 sidebar，表示要放側選單的內容。你可以在這個區段中加入 HTML，而在繼承它的子樣板中，可以重新定義(即覆蓋)這個區段的內容。
 
-@yield
+&#64;yield
 
 表示一個交由繼承它的子樣板定義的區段，如果子樣板未定義，就不會顯示任何內容。
 
-@include
+&#64;include
 
 目前這個樣板可以包含其他的"片段樣板"，片段樣板不會有完整的 HTML，而是代表某個部份的 HTML 片段。它被包含進這個主樣板中，屬於這個主樣板。
 
@@ -74,7 +78,7 @@ public - style、js、img...
 
 vendor - 程式
 
-views - html
+views - blade.php
 
 ----
 更詳細的資料請參考 Laravel 文件: https://laravel.tw/docs/5.2/blade
