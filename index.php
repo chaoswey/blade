@@ -15,12 +15,16 @@ if (!empty($SCRIPT_NAME)) {
     $SCRIPT_NAME = addcslashes($SCRIPT_NAME, '/');
     $REQUEST_URI = preg_replace('/' . $SCRIPT_NAME . '/', '', $REQUEST_URI);
 }
-$uri = explode('/', ltrim($REQUEST_URI, '/'));
-$uri = implode('.', $uri);
+$uri = preg_replace('/(\?.*)|(#.*)/', '', ltrim($REQUEST_URI, '/'));
+$uri = preg_replace('/\//', '.', $uri);
 if (empty($uri)) {
     $uri = 'index';
 }
 
+/*
+檢查檔案是否存在
+*/
+$REQUEST_URI = preg_replace('/(\?.*)||(#.*)/', '', $REQUEST_URI);
 $file = ($REQUEST_URI == '/') ? $file = $REQUEST_URI . 'index' : $REQUEST_URI;
 $file = $views . $file . '.blade.php';
 $file = str_replace('/', '\\', $file);
