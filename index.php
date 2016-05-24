@@ -26,8 +26,10 @@ if (empty($uri)) {
 */
 $REQUEST_URI = preg_replace('/(\?.*)||(#.*)/', '', $REQUEST_URI);
 $file = ($REQUEST_URI == '/') ? $file = $REQUEST_URI . 'index' : $REQUEST_URI;
-$file = $views . $file . '.blade.php';
-$file = str_replace('/', '\\', $file);
+$file = 'views' . $file . '.blade.php';
+if (PHP_OS == 'WINNT') {
+    $file = str_replace('/', '\\', $file);
+}
 if (!file_exists($file)) {
     $blade = new Blade($error, $cache);
     echo $blade->view()->make('404')->render();
