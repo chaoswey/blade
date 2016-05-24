@@ -4,6 +4,10 @@
 
 ## 更新說明 ##
 
+* 1.0.5
+
+修正linux 找不到檔案,demo template.blade.php 增加no-cache 
+
 * 1.0.4
 
 修正無法使用query string
