@@ -4,9 +4,9 @@ require 'helper.php';
 
 use Philo\Blade\Blade;
 
-$views = __DIR__ . '/views';
-$cache = __DIR__ . '/cache';
-$error = __DIR__ . '/error';
+$views = __DIR__ . '/resources/views';
+$cache = __DIR__ . '/app/cache';
+$error = __DIR__ . '/app/error';
 
 $SCRIPT_NAME = preg_replace('/\/index.php/', '', $_SERVER['SCRIPT_NAME']);
 $REQUEST_URI = preg_replace('/\/index.php/', '', $_SERVER['REQUEST_URI']);
@@ -26,7 +26,7 @@ if (empty($uri)) {
 */
 $REQUEST_URI = preg_replace('/(\?.*)||(#.*)/', '', $REQUEST_URI);
 $file = ($REQUEST_URI == '/') ? $file = $REQUEST_URI . 'index' : $REQUEST_URI;
-$file = 'views' . $file . '.blade.php';
+$file = $views . $file . '.blade.php';
 if (PHP_OS == 'WINNT') {
     $file = str_replace('/', '\\', $file);
 }
