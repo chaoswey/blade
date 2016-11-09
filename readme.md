@@ -4,19 +4,19 @@
 
 ## 更新說明 ##
 
-* 1.0.5
+* 1.1.0
 
-修正linux 找不到檔案,demo template.blade.php 增加no-cache 
+加入 gulp 調整資料夾結構
 
-* 1.0.4
+app --- cache, error
 
-修正無法使用query string
+public --- image, css, js...
 
-* 1.0.1
+resources --- assets sass,js,vue...
 
-修改 readme.md
+resources --- views blade.php
 
-* 1.0.0
+
 
 ## require package ##
 
@@ -24,11 +24,23 @@
 
 > philo/laravel-blade: https://github.com/PhiloNL/Laravel-Blade
 
-## 如何使用 ##
+## 如何使用-gulp ##
+
+安裝 node, yarn
+
+執行 yarn
+
+將 sass 放到 assets/sass
+
+執行gulp
+
+編譯後的檔案會放到 public/styles
+
+## 如何使用-樣板 ##
 
 將 xxx.html、xxx.php 改成 xxx.blade.php
 
-放入 views 資料夾裡面
+放入 resources/views 資料夾裡面
 
 開啟瀏覽器 輸入 localhost/[資料夾名稱]/[html檔名]
 
