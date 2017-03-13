@@ -1,6 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-require 'helper.php';
+require 'app/helper.php';
 
 use Philo\Blade\Blade;
 
@@ -15,7 +15,9 @@ if (!empty($SCRIPT_NAME)) {
     $SCRIPT_NAME = addcslashes($SCRIPT_NAME, '/');
     $REQUEST_URI = preg_replace('/' . $SCRIPT_NAME . '/', '', $REQUEST_URI);
 }
+//找尋 ? 跟 #
 $uri = preg_replace('/(\?.*)|(#.*)/', '', ltrim($REQUEST_URI, '/'));
+//檔案位置
 $uri = preg_replace('/\//', '.', $uri);
 if (empty($uri)) {
     $uri = 'index';
