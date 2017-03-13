@@ -346,6 +346,10 @@ Mix 提供了一個有用的 `webpackConfig` 方法，允許合並任何 `Webpac
     
     mix.disableNotifications();
 
+----
+
+----
+
 ## 如何使用-blade ##
 
 
