@@ -1,6 +1,6 @@
 # weya blade #
 
-    git clone https://chaoswey@bitbucket.org/chaoswey/blade.git
+    git clone http://gitlab.weya.tw/weya/blade.git
 
 ## 快速連結 ##
 
@@ -10,26 +10,28 @@
 
 ## 更新說明 ##
 
-* 1.2.0
+* 1.2.1
 
-加入 laravel-mix
+移除 gulp 加入 laravel-mix
 
-## 更新說明 ##
+## 重大版本 ##
 * 1.1.0
+
+加入 gulp 調整資料夾結構
+
+* 1.0.5
 
 加入 gulp 調整資料夾結構
 
 ## 資料結構說明 ##
 
-cache - 自動產生 Html 快取
-
-error - 404 錯誤
+app - 自動產生 Html 快取
 
 public - style、js、img...
 
 vendor - 程式
 
-views - blade.php
+resources - blade.php
 
 ## require package ##
 
