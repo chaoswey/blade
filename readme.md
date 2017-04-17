@@ -29,10 +29,11 @@
     app/
     public/
     resources/views/
-    resources/.htaccess
-    resources/index.html
+           ../.htaccess
+           ../index.html
     vendor/
     index.php
+    .htaccess
 
 特別要注意 app/cache/ 要改權限成 777
 
