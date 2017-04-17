@@ -4,23 +4,54 @@
 
 ## 快速連結 ##
 
-[laravel-mix](/blob/master/doc/mix.md)
+[laravel-mix](http://gitlab.weya.tw/weya/blade/blob/master/doc/mix.md)
 
-[laravel-blade](/blob/master/doc/blade.md)
+[laravel-blade](http://gitlab.weya.tw/weya/blade/blob/master/doc/blade.md)
 
 ## 更新說明 ##
 
-[更新說明](/blob/master/doc/changelog.md)
+[更新說明](http://gitlab.weya.tw/weya/blade/blob/master/doc/changelog.md)
+
+## clone 注意事項
+
+請刪除以下檔案
+
+    .git
+    doc/
+    composer.json
+    composer.lock
+    readme.md
+
+## 發布檔案前注意事項
+
+只要上傳以下檔案
+
+    app/
+    public/
+    resources/views/
+    resources/.htaccess
+    resources/index.html
+    vendor/
+    index.php
+
+特別要注意 app/cache/ 要改權限成 777
+
+![0](/uploads/5784d4052961732f27a2e3312c314c38/0.png)
+![1](/uploads/808e137cf41289e9e4f8a51cf702d614/1.PNG)
+
 
 ## 資料結構說明 ##
 
-app - 自動產生 Html 快取
+app - 自動產生 Html 快取，主程式
 
 public - style、js、img...
 
-vendor - 程式
+vendor - 核心程式
 
-resources - blade.php
+|resources||
+| :---: |:---:|
+| - assets|style、js、img 原始碼|
+| - views|blade.php|
 
 ## require package ##
 
