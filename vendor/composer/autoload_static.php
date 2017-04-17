@@ -31,6 +31,10 @@ class ComposerStaticInitc2c57eef915502a0cebf700fcc287df7
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
+        'A' => 
+        array (
+            'App\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -73,6 +77,10 @@ class ComposerStaticInitc2c57eef915502a0cebf700fcc287df7
         'Illuminate\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 

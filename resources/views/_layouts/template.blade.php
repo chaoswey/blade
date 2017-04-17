@@ -8,7 +8,7 @@
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="pragma" content="no-cache" />
-    <link href="{{ asset('styles/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('style.css') }}" rel="stylesheet">
 </head>
 <body>
 @include('_partials.header')

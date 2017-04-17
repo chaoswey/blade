@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /app/
+Disallow: /doc/
+Disallow: /public/
+Disallow: /resources/
+Disallow: /vendor/
+Disallow: /.gitattributes
+Disallow: /.gitignore
+Disallow: /.htaccess
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /hot
+Disallow: /mix-manifest.json
+Disallow: /package.json
+Disallow: /readme.md
+Disallow: /webpack.mix.js
+Disallow: /yarn.lock
