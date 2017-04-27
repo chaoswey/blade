@@ -88,6 +88,7 @@ class Route
                 $this->route_exists(true);
             }
         } catch (\Exception $e) {
+            header("HTTP/1.0 404 Not Found");
             $blade = new Blade($this->error, $this->cache);
             echo $blade->view()->make('404')->render();
             die();
