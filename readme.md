@@ -8,6 +8,8 @@
 
 [laravel-blade](http://gitlab.weya.tw/weya/blade/blob/master/doc/blade.md)
 
+`new` [request](http://gitlab.weya.tw/weya/blade/blob/master/doc/request.md)
+
 ## 更新說明 ##
 
 [更新說明](http://gitlab.weya.tw/weya/blade/blob/master/doc/changelog.md)

@@ -36,7 +36,13 @@ class Url
         if (preg_match('/index.php/', $_SERVER['REQUEST_URI'])) {
             $this->host .= 'index.php/';
         }
-        return $this->host .= trim(trim($path), '/');
+        $path = trim(trim($path), '/');
+        $pathArray = explode('/', $path);
+        if (end($pathArray) == "index") {
+            array_pop($pathArray);
+        }
+        $path = implode("/", $pathArray);
+        return $this->host .= $path;
     }
 
     public function asset($content = null)
