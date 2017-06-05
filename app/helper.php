@@ -4,7 +4,7 @@ use App\Url;
 use App\Request;
 
 if (!function_exists('url')) {
-    function url($path)
+    function url($path = "/")
     {
         $url = new Url();
         return $url->get($path);
@@ -20,12 +20,12 @@ if (!function_exists('asset')) {
 }
 
 if (!function_exists('is')) {
-    function is()
+    function is($url, $class = "active")
     {
         $request = new Request();
-        foreach (func_get_args() as $pattern) {
-            return $request->is($pattern);
+        if ($request->is($url)) {
+            return $class;
         }
-        return false;
+        return "";
     }
 }

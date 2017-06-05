@@ -11,7 +11,11 @@ class Request
         $filePath = preg_replace("/{$scriptName}/", '', $filePath);
         $filePath = preg_replace('/\/index.php/', '', $filePath);
         $filePath = preg_replace('/(\?.*)|(#.*)/', '', ltrim($filePath, '/'));
-        $filePath = preg_replace('/[^A-Za-z0-9\-]/', '', $filePath);
+        $path = explode('/', $filePath);
+        foreach ($path as $k => $file) {
+            $path[$k] = preg_replace('/[^A-Za-z0-9\-]/', '', $file);
+        }
+        $filePath = implode('/', $path);
 
         return $filePath;
     }
@@ -28,13 +32,26 @@ class Request
         return rawurldecode($this->path());
     }
 
-    public function is()
+    public function is($pattern)
     {
-        foreach (func_get_args() as $pattern) {
-            if (Str::is($pattern, $this->decodedPath())) {
-                return true;
-            }
+        $pattern = $this->check($pattern);
+        if (Str::is($pattern, $this->decodedPath())) {
+            return true;
         }
         return false;
+    }
+
+    protected function check($pattern)
+    {
+        $pattern = trim(trim($pattern, "/"));
+        $url = explode("/", $pattern);
+        if (end($url) == "index") {
+            array_pop($url);
+        }
+        $pattern = implode("/", $url);
+        if (empty($pattern)) {
+            return "/";
+        }
+        return $pattern;
     }
 }

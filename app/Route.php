@@ -63,7 +63,7 @@ class Route
      */
     protected function blade_exists()
     {
-        $file = "{$this->views}/$this->filePath.blade.php";
+        $file = "{$this->views}/{$this->filePath}.blade.php";
         if (PHP_OS == 'WINNT') {
             $file = str_replace('/', '\\', $file);
         }
@@ -117,7 +117,11 @@ class Route
     protected function removeQueryString()
     {
         $this->filePath = preg_replace('/(\?.*)|(#.*)/', '', ltrim($this->requestURI, '/'));
-        $this->filePath = preg_replace('/[^A-Za-z0-9\-]/', '', $this->filePath);
+        $filepath = explode('/', $this->filePath);
+        foreach($filepath as $k => $file){
+            $filepath[$k] = preg_replace('/[^A-Za-z0-9\-]/', '', $file);
+        }
+        $this->filePath = implode('/', $filepath);
         $this->combinationFile();
     }
 
