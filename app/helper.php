@@ -19,8 +19,8 @@ if (!function_exists('asset')) {
     }
 }
 
-if (!function_exists('is')) {
-    function is($url, $class = "active")
+if (!function_exists('url_is')) {
+    function url_is($url, $class = "active")
     {
         $request = new Request();
         if ($request->is($url)) {
