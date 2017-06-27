@@ -4,3 +4,17 @@ Thumbs.db
 node_modules/
 mix-manifest.json
 hot
+mix.js.map
+vendor/**/LICENSE
+vendor/**/CHANGELOG.md
+vendor/**/phpunit.xml.dist
+vendor/**/README.md
+vendor/**/readme.md
+vendor/**/.gitignore
+vendor/**/Tests
+vendor/**/tests
+vendor/**/Test
+vendor/**/Testing
+vendor/**/build-phar.sh
+vendor/**/psalm.xml
+vendor/**/.travis.yml

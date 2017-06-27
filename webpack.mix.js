@@ -13,20 +13,12 @@ const { mix } = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
- | 資料夾內檔案統一合併
- |--------------------------------------------------------------------------
- */
-mix.js('resources/assets/js/weya.js', 'public/js')
-
-/*
- |--------------------------------------------------------------------------
  | 各個JS合併成一隻檔案
  |--------------------------------------------------------------------------
  */
-.scripts([
-    'public/js/admin.js',
-    'public/js/dashboard.js'
-], 'public/js/all.js')
+mix.scripts([
+    'resources/assets/js/weya.js'
+], 'public/js/weya.js');
 
 /*
  |--------------------------------------------------------------------------
@@ -34,12 +26,12 @@ mix.js('resources/assets/js/weya.js', 'public/js')
  | processCssUrls 不改變 url:()
  |--------------------------------------------------------------------------
  */
-.sass('resources/assets/sass/style.scss', 'public/css')
+mix.sass('resources/assets/sass/style.scss', 'public/css');
 
 /*
  |--------------------------------------------------------------------------
  | 設定檔
  |--------------------------------------------------------------------------
  */
-.options({ processCssUrls: false })
-.sourceMaps();
+mix.options({ processCssUrls: false });
+mix.sourceMaps();
