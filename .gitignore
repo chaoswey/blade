@@ -14,7 +14,12 @@ vendor/**/.gitignore
 vendor/**/Tests
 vendor/**/tests
 vendor/**/Test
+vendor/**/test
 vendor/**/Testing
 vendor/**/build-phar.sh
 vendor/**/psalm.xml
 vendor/**/.travis.yml
+vendor/**/Makefile
+vendor/**/CONTRIBUTING.md
+vendor/**/.gitlab-ci.yml
+vendor/**/var/
