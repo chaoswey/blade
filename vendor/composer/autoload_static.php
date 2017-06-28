@@ -4,11 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc2c57eef915502a0cebf700fcc287df7
+class ComposerStaticInita5268a46c9ddd09dc03a5474db6e936c
 {
     public static $files = array (
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        'f32902f145fce7a432f59959f59e5a18' => __DIR__ . '/../..' . '/app/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -30,6 +31,10 @@ class ComposerStaticInitc2c57eef915502a0cebf700fcc287df7
             'Illuminate\\Events\\' => 18,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
+        ),
+        'F' => 
+        array (
+            'Faker\\' => 6,
         ),
         'A' => 
         array (
@@ -78,6 +83,10 @@ class ComposerStaticInitc2c57eef915502a0cebf700fcc287df7
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -97,9 +106,9 @@ class ComposerStaticInitc2c57eef915502a0cebf700fcc287df7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc2c57eef915502a0cebf700fcc287df7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc2c57eef915502a0cebf700fcc287df7::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitc2c57eef915502a0cebf700fcc287df7::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita5268a46c9ddd09dc03a5474db6e936c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita5268a46c9ddd09dc03a5474db6e936c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita5268a46c9ddd09dc03a5474db6e936c::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

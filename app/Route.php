@@ -88,11 +88,15 @@ class Route
                 $this->route_exists(true);
             }
         } catch (\Exception $e) {
-            header("HTTP/1.0 404 Not Found");
-            $blade = new Blade($this->error, $this->cache);
-            echo $blade->view()->make('404')->render();
-            die();
+            $this->error();
         }
+    }
+
+    public function error()
+    {
+        header("HTTP/1.0 404 Not Found");
+        $blade = new Blade($this->error, $this->cache);
+        return $blade->view()->make('404')->render();
     }
 
     /**
@@ -118,7 +122,7 @@ class Route
     {
         $this->filePath = preg_replace('/(\?.*)|(#.*)/', '', ltrim($this->requestURI, '/'));
         $filepath = explode('/', $this->filePath);
-        foreach($filepath as $k => $file){
+        foreach ($filepath as $k => $file) {
             $filepath[$k] = preg_replace('/[^A-Za-z0-9\-]/', '', $file);
         }
         $this->filePath = implode('/', $filepath);
