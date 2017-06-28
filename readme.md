@@ -4,11 +4,13 @@
 
 ## 快速連結 ##
 
-[laravel-mix](http://gitlab.weya.tw/weya/blade/blob/master/doc/mix.md)
-
-[laravel-blade](http://gitlab.weya.tw/weya/blade/blob/master/doc/blade.md)
-
-`new` [request](http://gitlab.weya.tw/weya/blade/blob/master/doc/request.md)
+|介紹|網址|
+|:---:|:---|
+|laravel-mix webpack 操作說明|[laravel-mix](http://gitlab.weya.tw/weya/blade/blob/master/doc/mix.md)|
+|blade 樣板引擎說明|[laravel-blade](http://gitlab.weya.tw/weya/blade/blob/master/doc/blade.md)|
+|判斷網址|`new` [request](http://gitlab.weya.tw/weya/blade/blob/master/doc/request.md)|
+|假文字|`new` [faker](http://gitlab.weya.tw/weya/blade/blob/master/doc/image.md)|
+|假圖片|`new` [image](http://gitlab.weya.tw/weya/blade/blob/master/doc/image.md)|
 
 ## 更新說明 ##
 
@@ -36,6 +38,7 @@
     vendor/
     index.php
     .htaccess
+    robots.txt
 
 特別要注意 app/cache/ 要改權限成 777
 
@@ -45,41 +48,41 @@
 
 ## 資料結構說明 ##
 
-app - 自動產生 Html 快取，主程式
+|資料夾|說明|
+|:---:|:---|
+|app|自動產生 Html 快取，主程式|
+|public|min.js、min.css、img...etc|
+|vendor|核心程式|
+|resources|<ul><li>- assets: style、js、img 原始碼</li><li>- views: blade.php</li></ul>|
 
-public - style、js、img...
-
-vendor - 核心程式
-
-|resources||
-| :---: |:---:|
-| - assets|style、js、img 原始碼|
-| - views|blade.php|
 
 ## require package ##
 
-* laravel-blade
-
-> philo/laravel-blade: https://github.com/PhiloNL/Laravel-Blade
+|套件名稱|作用|網址|
+|:---:|:---:|:---|
+|philo/laravel-blade|laravel blade|https://github.com/PhiloNL/Laravel-Blade|
+|fzaninotto/faker|假資料|https://github.com/fzaninotto/Faker|
+|bheller/images-generator|假圖片|https://github.com/bruceheller/images-generator|
 
 
 ----
 
 ## 如何載入 style、js、img ##
-
-
+```html
     <link href="{{ asset('styles/bootstrap.min.css') }}" rel="stylesheet">
-
     <script src="{{ asset('scripts/bootstrap.min.js') }}"></script>
-
     <img src="{{ asset('images/icon.png') }}" />
+```
 
 ## 如何使用連結 ##
-
+```html
     <a href="{{ url('/') }}">首頁</a>
+```
 
 Ajax
 
+```javascript
     $.get('{{ url('/test') }}', {}, function(data){
         console.log(data);
     });
+```

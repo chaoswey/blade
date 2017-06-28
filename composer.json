@@ -1,13 +1,14 @@
 {
-    "require": {
-        "philo/laravel-blade": "^3.1"
+  "require": {
+    "philo/laravel-blade": "^3.1",
+    "fzaninotto/faker": "^1.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        },
-        "files": [
-            "app/helpers.php"
-        ]
-    }
+    "files": [
+      "app/helper.php"
+    ]
+  }
 }
