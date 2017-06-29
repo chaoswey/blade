@@ -62,7 +62,6 @@
 |:---:|:---:|:---|
 |philo/laravel-blade|laravel blade|https://github.com/PhiloNL/Laravel-Blade|
 |fzaninotto/faker|假資料|https://github.com/fzaninotto/Faker|
-|bheller/images-generator|假圖片|https://github.com/bruceheller/images-generator|
 
 
 ----
