@@ -7,7 +7,7 @@
 ```
 
 ```php
-image($width = 640, $height = 480, $type = "business", $text = null)
+image($width = 640, $height = 480, $category = null, $randomize = true, $word = null)
 ```
 參數說明
 
@@ -15,11 +15,13 @@ image($width = 640, $height = 480, $type = "business", $text = null)
 
 `$height` 高度
 
-`$type` 類型
+`$category` 類型
 
-`$text` 文字
+`$randomize` 隨機
 
-### 類型
+`$word` 文字
+
+### `$category` 類型
 
 1. `people` 人物
 2. `abstract` 抽象畫
