@@ -36,9 +36,9 @@ if (!function_exists('faker')) {
 }
 
 if (!function_exists('image')) {
-    function image($width = 640, $height = 480, $type = "business", $text = null)
+    function image($width = 640, $height = 480, $category = null, $randomize = true, $word = null)
     {
         $faker = Faker\Factory::create();
-        return $faker->imageUrl($width, $height, $type, true, $text);
+        return $faker->imageUrl($width, $height, $category, $randomize, $word);
     }
 }
