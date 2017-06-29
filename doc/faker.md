@@ -1,3 +1,15 @@
+# faker
+
+使用方式:
+
+```html
+ <div>{{ faker()->text(1000) }}</div>
+```
+
+```html
+ <div>{{ faker()->name() }}</div>
+```
+
 ### `Faker\Provider\Base`
 
     randomDigit             // 7

@@ -10,7 +10,7 @@
 |blade 樣板引擎說明|[laravel-blade](http://gitlab.weya.tw/weya/blade/blob/master/doc/blade.md)|
 |判斷網址|`new` [request](http://gitlab.weya.tw/weya/blade/blob/master/doc/request.md)|
 |假文字|`new` [faker](http://gitlab.weya.tw/weya/blade/blob/master/doc/image.md)|
-|假圖片|`new` [image](http://gitlab.weya.tw/weya/blade/blob/master/doc/image.md)|
+|假圖片|`new` [image](http://gitlab.weya.tw/weya/blade/blob/master/doc/faker.md)|
 
 ## 更新說明 ##
 

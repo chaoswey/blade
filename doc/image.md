@@ -1,4 +1,11 @@
 # image
+
+使用方式:
+
+```html
+ <div>{{ image() }}</div>
+```
+
 ```php
 image($width = 640, $height = 480, $type = "business", $text = null)
 ```
