@@ -38,6 +38,7 @@ if (!function_exists('faker')) {
 if (!function_exists('image')) {
     function image($width = 640, $height = 480, $type = "business", $text = null)
     {
-        return "http://lorempixel.com/{$width}/{$height}/{$type}/{$text}";
+        $faker = Faker\Factory::create();
+        return $faker->imageUrl($width, $height, $type, true, $text);
     }
 }
