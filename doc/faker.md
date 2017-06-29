@@ -10,6 +10,14 @@
  <div>{{ faker()->name() }}</div>
 ```
 
+多語系
+```html
+ <div>{{ faker('en_US')->name() }}</div>
+ <div>{{ faker('ja_JP')->name() }}</div>
+ <div>{{ faker('zh_CN')->name() }}</div>
+ <div>{{ faker('zh_TW')->name() }}</div>
+```
+
 ### `Faker\Provider\Base`
 
     randomDigit             // 7
