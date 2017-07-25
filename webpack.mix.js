@@ -1,4 +1,4 @@
-const { mix } = require('laravel-mix');
+const {mix} = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -33,5 +33,14 @@ mix.sass('resources/assets/sass/style.scss', 'public/css');
  | 設定檔
  |--------------------------------------------------------------------------
  */
-mix.options({ processCssUrls: false });
+mix.options({processCssUrls: false});
 mix.sourceMaps();
+
+mix.browserSync({
+    files: [
+        'public/**/*',
+        'resources/views/**/*',
+        'resources/views/**/**/**'
+    ],
+    proxy: 'product.dev:8081'
+});
