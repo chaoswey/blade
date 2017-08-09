@@ -13,7 +13,7 @@
 
 ## 更新說明 ##
 
-[更新說明](http://gitlab.weya.tw/weya/blade/blob/master/doc/changelog.md)
+[更新說明](https://gitea.weya.tw/framework/blade/src/master/doc/changelog.md)
 
 ## clone 注意事項
 
