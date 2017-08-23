@@ -6,14 +6,14 @@
 
 |介紹|網址|
 |:---:|:---|
-|laravel-mix webpack 操作說明|[laravel-mix](http://gitlab.weya.tw/weya/blade/blob/master/doc/mix.md)|
-|blade 樣板引擎說明|[laravel-blade](http://gitlab.weya.tw/weya/blade/blob/master/doc/blade.md)|
-|判斷網址|`new` [request](http://gitlab.weya.tw/weya/blade/blob/master/doc/request.md)|
-|假文字|`new` [faker](http://gitlab.weya.tw/weya/blade/blob/master/doc/image.md)|
+|laravel-mix webpack 操作說明|[laravel-mix](https://gitea.weya.tw/framework/blade/src/master/doc/mix.md)|
+|blade 樣板引擎說明|[laravel-blade](https://gitea.weya.tw/framework/blade/src/master/doc/blade.md)|
+|判斷網址|`new` [request](https://gitea.weya.tw/framework/blade/src/master/doc/request.md)|
+|假文字|`new` [faker](https://gitea.weya.tw/framework/blade/src/master/doc/image.md)|
 
 ## 更新說明 ##
 
-[更新說明](http://gitlab.weya.tw/weya/blade/blob/master/doc/changelog.md)
+[更新說明](https://gitea.weya.tw/framework/blade/src/master/doc/changelog.md)
 
 ## clone 注意事項
 
