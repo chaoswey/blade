@@ -123,7 +123,7 @@ class Route
         $this->filePath = preg_replace('/(\?.*)|(#.*)/', '', ltrim($this->requestURI, '/'));
         $filepath = explode('/', $this->filePath);
         foreach ($filepath as $k => $file) {
-            $filepath[$k] = preg_replace('/[^A-Za-z0-9\-]/', '', $file);
+            $filepath[$k] = preg_replace('/[^A-Za-z0-9\-\_]/', '', $file);
         }
         $this->filePath = implode('/', $filepath);
         $this->combinationFile();
