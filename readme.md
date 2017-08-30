@@ -9,7 +9,8 @@
 |laravel-mix webpack 操作說明|[laravel-mix](https://gitea.weya.tw/framework/blade/src/master/doc/mix.md)|
 |blade 樣板引擎說明|[laravel-blade](https://gitea.weya.tw/framework/blade/src/master/doc/blade.md)|
 |判斷網址|`new` [request](https://gitea.weya.tw/framework/blade/src/master/doc/request.md)|
-|假文字|`new` [faker](https://gitea.weya.tw/framework/blade/src/master/doc/image.md)|
+|假文字|`new` [faker](https://gitea.weya.tw/framework/blade/src/master/doc/faker.md)|
+|假圖片|`new` [image](https://gitea.weya.tw/framework/blade/src/master/doc/image.md)|
 
 ## 更新說明 ##
 
