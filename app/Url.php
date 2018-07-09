@@ -15,15 +15,21 @@ class Url
 
     protected function getHost()
     {
-        $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
-        $this->host = $protocol . '://' . $_SERVER['HTTP_HOST'];
+        if (!$this->isCommandLineInterface()) {
+            $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+            $this->host = $protocol . '://' . $_SERVER['HTTP_HOST'];
+        }
         $this->getRoot();
     }
 
     protected function getRoot()
     {
-        $this->removeIndex();
-        $this->host .= $this->scriptName . "/";
+        if ($this->isCommandLineInterface()) {
+            $this->host .= '/';
+        } else {
+            $this->removeIndex();
+            $this->host .= $this->scriptName . "/";
+        }
     }
 
     protected function removeIndex()
@@ -33,20 +39,39 @@ class Url
 
     public function get($path = null)
     {
-        if (preg_match('/index.php/', $_SERVER['REQUEST_URI'])) {
-            $this->host .= 'index.php/';
+        if (!$this->isCommandLineInterface()) {
+            if (preg_match('/index.php/', $_SERVER['REQUEST_URI'])) {
+                $this->host .= 'index.php/';
+            }
         }
         $path = trim(trim($path), '/');
         $pathArray = explode('/', $path);
-        if (end($pathArray) == "index") {
-            array_pop($pathArray);
+
+        if (!$this->isCommandLineInterface()) {
+            if (end($pathArray) == "index") {
+                array_pop($pathArray);
+            }
         }
+
         $path = implode("/", $pathArray);
+
+        if ($this->isCommandLineInterface()) {
+            $path .= '.html';
+        }
         return $this->host .= $path;
     }
 
     public function asset($content = null)
     {
-        return $this->host . 'public/' . trim(trim($content), '/');
+        if ($this->isCommandLineInterface()) {
+            return '/' . trim(trim($content), '/');
+        } else {
+            return $this->host . 'public/' . trim(trim($content), '/');
+        }
+    }
+
+    private function isCommandLineInterface()
+    {
+        return (php_sapi_name() === 'cli');
     }
 }

@@ -26,19 +26,3 @@ if (!function_exists('url_is')) {
         return "";
     }
 }
-
-if (!function_exists('faker')) {
-    function faker($locale = 'zh_TW')
-    {
-        $faker = Faker\Factory::create($locale);
-        return $faker;
-    }
-}
-
-if (!function_exists('image')) {
-    function image($width = 640, $height = 480, $category = null, $randomize = true, $word = null)
-    {
-        $faker = Faker\Factory::create();
-        return $faker->imageUrl($width, $height, $category, $randomize, $word);
-    }
-}
