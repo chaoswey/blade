@@ -1,6 +1,5 @@
 <?php
 require 'vendor/autoload.php';
-require 'app/helper.php';
 
 use Symfony\Component\Debug\Debug;
 use App\Route;

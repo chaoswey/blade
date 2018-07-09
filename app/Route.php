@@ -64,7 +64,7 @@ class Route
     protected function blade_exists()
     {
         $file = "{$this->views}/{$this->filePath}.blade.php";
-        if (PHP_OS == 'WINNT') {
+        if (windows_os()) {
             $file = str_replace('/', '\\', $file);
         }
         return file_exists($file);
