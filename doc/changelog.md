@@ -1,5 +1,11 @@
 ## 更新說明 ##
 
+* 2.1.0
+
+    移除 沒用 doc
+    
+    增加 CopyWebpackPlugin ImageminPlugin imageminMozjpeg
+
 * 2.0.0
 
     移除 假資料、假圖片

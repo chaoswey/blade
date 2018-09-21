@@ -1,6 +1,4 @@
-# weya blade #
-
-    git clone http://gitlab.weya.tw/weya/blade.git
+# cc blade #
     
 # 說明
 
