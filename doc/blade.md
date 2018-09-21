@@ -1,30 +1,45 @@
-## 如何使用-blade ##
+# Laravel 的 Blade 模板引擎
 
+- [簡介](#introduction)
+- [模板繼承](#template-inheritance)
+    - [定義布局](#defining-a-layout)
+    - [繼承布局](#extending-a-layout)
+- [Components & Slots](#components-and-slots)
+- [顯示數據](#displaying-data)
+    - [Blade & JavaScript 框架](#blade-and-javascript-frameworks)
+- [流程控制](#control-structures)
+    - [If 語句](#if-statements)
+    - [Switch 語句](#switch-statements)
+    - [循環](#loops)
+    - [循環變量](#the-loop-variable)
+    - [註釋](#comments)
+    - [PHP](#php)
+- [引入子視圖](#including-sub-views)
+    - [為集合渲染視圖](#rendering-views-for-collections)
+- [堆棧](#stacks)
 
-<a name="blade-introduction"></a>
+<a name="introduction"></a>
 ## 簡介
 
-Blade 是 Laravel 提供的一個既簡單又強大的樣板引擎。和其他流行的 PHP 樣板引擎不一樣，Blade 並不限制你在視圖中使用原生 PHP 代碼。所有 Blade 視圖文件都將被編譯成原生的 PHP 代碼並緩存起來，除非它被修改，否則不會重新編譯，這就意味著 Blade 基本上不會給你的應用增加任何額外負擔。Blade 視圖文件使用 `.blade.php` 擴展名，一般被存放在 `resources/views` 目錄。
+Blade 是 Laravel 提供的一個簡單而又強大的模板引擎。和其他流行的 PHP 模板引擎不同，Blade 並不限制你在視圖中使用原生 PHP 代碼。所有 Blade 視圖文件都將被編譯成原生的 PHP 代碼並緩存起來，除非它被修改，否則不會重新編譯，這就意味著 Blade 基本上不會給你的應用增加任何負擔。Blade 視圖文件使用 `.blade.php` 作為文件擴展名，被存放在 `resources/views` 目錄。
 
 <a name="template-inheritance"></a>
-## 樣板繼承
+## 模板繼承
 
 <a name="defining-a-layout"></a>
-### 定義頁面layout
+### 定義布局
 
-Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。 
-
-為方便開始，讓我們先通過一個簡單的例子來上手。首先，我們需要確認一個 "master" 的頁面layout。因為大多數 web 應用是在不同的頁面中使用相同的layout方式，我們可以很方便的定義這個 Blade layout視圖：
+Blade 的兩個主要優點是 _模板繼承_ 和 _區塊_ 。為方便開始，讓我們先通過一個簡單的例子來上手。首先，我們來研究一個「主」頁面布局。因為大多數 web 應用會在不同的頁面中使用相同的布局方式，因此可以很方便地定義單個 Blade 布局視圖：
 
     <!-- 文件保存於 resources/views/layouts/app.blade.php -->
 
     <html>
         <head>
-            <title>網站名稱 - @yield('title')</title>
+            <title>應用程序名稱 - @yield('title')</title>
         </head>
         <body>
             @section('sidebar')
-                這是 master 的側邊欄。
+                這是主布局的側邊欄。
             @show
 
             <div class="container">
@@ -33,43 +48,47 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
         </body>
     </html>
 
-如你所見，該文件包含了典型的 HTML 語法。不過，請注意 `@section` 和 `@yield` 命令。 `@section` 命令正如其名字所暗示的一樣是用來定義一個視圖區塊的，而  `@yield` 指令是用來顯示指定區塊的內容的。
+如你所見，該文件包含了典型的 HTML 語法。不過，請註意 `@section` 和 `@yield` 命令。顧名思義，`@section` 命令定義了視圖的一部分內容，而  `@yield` 指令是用來顯示指定部分的內容。
 
-現在，我們已經定義好了這個應用程序的layout，讓我們接著來定義一個繼承此layout的子頁面。
+現在，我們已經定義好了這個應用程序的布局，接下來，我們定義一個繼承此布局的子頁面。
 
 <a name="extending-a-layout"></a>
-### 繼承頁面layout
+### 繼承布局
 
-當定義子頁面時，你可以使用 Blade 提供的 `@extends` 命令來為子頁面指定其所 「繼承」 的頁面layout。 當子頁面繼承layout之後，即可使用 `@section` 命令將內容注入於layout的 `@section` 區塊中。切記，在上面的例子裡，layout中使用 `@yield` 的地方將會顯示這些區塊中的內容：
+當定義子視圖時，你可以使用 Blade 提供的 `@extends` 命令來為子視圖指定應該 「繼承」 的布局。 繼承 Blade 布局的視圖可使用 `@section` 命令將內容註入於布局的 `@section` 中。而「主」布局中使用 `@yield` 的地方會顯示這些子視圖中的  `@section` 間的內容：
 
-    <!-- Stored in resources/views/child.blade.php -->
+````
+<!-- 文件保存於 resources/views/layouts/child.blade.php -->
 
-    @extends('layouts.app')
+@extends('layouts.app')
 
-    @section('title', 'Page Title')
+@section('title', 'Page Title')
 
-    @section('sidebar')
-        @@parent
+@section('sidebar')
+    @parent
 
-        <p>This is appended to the master sidebar.</p>
-    @endsection
+    <p>這將追加到主布局的側邊欄。</p>
+@endsection
 
-    @section('content')
-        <p>This is my body content.</p>
-    @endsection
+@section('content')
+    <p>這是主體內容。</p>
+@endsection
+````
 
-在上面的例子裡，`sidebar` 區塊利用了 `@@parent` 命令追加layout中的 sidebar 區塊中的內容，如果不使用則會覆蓋掉layout中的這部分內容。 `@@parent` 命令會在視圖被渲染時替換為layout中的內容。
+在上面的例子裏，`@section` 中的 `sidebar` 使用 `@@parent` 命令在「主」布局的 `@section('sidebar')` 中增加內容（不是覆蓋）。渲染視圖時，`@@parent` 指令會被替換為「主」布局中 `@section('sidebar')` 間的內容。
 
-當然，可以通過在路由中使用全局輔助函數 `view` 來返回 Blade 視圖：
+> {tip} 與上一個示例相反，此側邊欄部分以 `@endsection` 而不是 `@show` 結尾。 `@endsection` 指令只定義一個區塊，而 `@show` 則是定義並立即生成該區塊。
+
+你也可以通過在路由中使用全局輔助函數 `view` 來返回 Blade 視圖：
 
     Route::get('blade', function () {
         return view('child');
     });
 
 <a name="components-and-slots"></a>
-## 組件 & Slots
+## Components & Slots
 
-組件和 slots 能提供類似於區塊和layout的好處；不過，一些人可能發現組件和 slots 更容易理解。首先，讓我們假設一個會在我們應用中重復使用的「警告」組件:
+Components 和 slots 類似於布局中的 `@section`，但其使用方式更容易使人理解。首先，假設我們有一個能在整個應用程序中被重覆使用的「警告」組件:
 
     <!-- /resources/views/alert.blade.php -->
 
@@ -77,13 +96,14 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
         {{ $slot }}
     </div>
 
-`{{ $slot }}` 變量將包含我們希望注入到組件的內容。現在，我們可以使用 `@component` 指令來構造這個組件：
+`{{ $slot }}` 變量將包含我們希望註入到組件的內容。然後，我們可以使用 Blade 命令 `@component` 來構建這個組件：
 
     @component('alert')
-        <strong>哇！</strong> 出現了一些問題！
+        <strong>Whoops!</strong> Something went wrong!
     @endcomponent
 
-有些時候它對於定義組件的多個 slots 是非常有幫助的。讓我們修改我們的警告組件，讓它支持注入一個「標題」。 已命名的 slots 將顯示「相對應」名稱的變量的值:
+有時為組件定義多個 slots 是很有幫助的。現在我們要對「警報」組件進行修改，讓它可以註入「標題」。通過簡單地 「打印」匹配其名稱的變量來顯示被命名的 `@slot` 之間的內容：
+
 
     <!-- /resources/views/alert.blade.php -->
 
@@ -93,28 +113,29 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
         {{ $slot }}
     </div>
 
-現在，我們可以使用 `@slot` 指令注入內容到已命名的 slot 中，任何沒有被 `@slot` 指令包裹住的內容將傳遞給組件中的 `$slot` 變量:
+現在，我們可以使用 `@slot` 指令註入內容到已命名的 slot 中，任何沒有被 `@slot` 指令包裹住的內容將傳遞給組件中的 `$slot` 變量:
 
     @component('alert')
         @slot('title')
-            拒絕
+            Forbidden
         @endslot
 
         你沒有權限訪問這個資源！
     @endcomponent
 
-#### 傳遞額外的Data給組件
+#### 傳遞額外的數據給組件
 
-有時候你可能需要傳遞額外的Data給組件。為了解決這個問題，你可以傳遞一個數組作為第二個參數傳遞給 `@component` 指令。所有的Data都將以變量的形式傳遞給組件模版:
+有時候你可能需要傳遞額外的數據給組件。你可以傳遞一個數組作為第二個參數傳遞給 `@component` 指令。所有的數據都將以變量的形式傳遞給組件模版:
 
     @component('alert', ['foo' => 'bar'])
         ...
     @endcomponent
 
 <a name="displaying-data"></a>
-## 顯示Data
 
-你可以使用 「中括號」 包住變量以顯示傳遞至 Blade 視圖的Data。如下面的路由設置：
+## 顯示數據
+
+你可以使用 「中括號」 包住變量將數據傳遞給 Blade 視圖。如下面的路由設置：
 
     Route::get('greeting', function () {
         return view('welcome', ['name' => 'Samantha']);
@@ -123,47 +144,54 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
 你可以像這樣顯示 `name` 變量的內容：
 
     Hello, {{ $name }}.
-
-當然也不是說一定只能顯示傳遞至視圖的變量內容。你也可以顯示 PHP 函數的結果。事實上，你可以在 Blade 中顯示任意的 PHP 代碼：
+當然，不僅僅只能用傳遞數據的方式讓視圖來顯示變量內容。你也可以打印 PHP 函數的結果。其實，你可以在 Blade 打印語法中放置任何 PHP 代碼：
 
     The current UNIX timestamp is {{ time() }}.
 
-> {note} Blade `{{ }}` 語法會自動調用 PHP `htmlspecialchars` 函數來避免 XSS 攻擊。
+> {note} Blade 的 `{{ }}` 語法會自動調用 PHP `htmlspecialchars` 函數來避免 XSS 攻擊。
 
-#### 當Data存在時輸出
+#### 顯示未轉義的數據
 
-有時候你可能想要輸出一個變量，但是你並不確定這個變量是否已經被定義，我們可以用像這樣的冗長 PHP 代碼表達：
-
-    {{ isset($name) ? $name : 'Default' }}
-
-事實上，Blade 提供了更便捷的方式來代替這種三元運算符表達式：
-
-    {{ $name or 'Default' }}
-
-在這個例子中，如果 `$name` 變量存在，它的值將被顯示出來。但是，如果它不存在，則會顯示 `Default` 。
-
-#### 顯示未轉義過的Data
-
-在默認情況下，Blade 樣板中的 `{{ }}` 表達式將會自動調用 PHP `htmlspecialchars` 函數來轉義Data以避免 XSS 的攻擊。如果你不想你的Data被轉義，你可以使用下面的語法：
+默認情況下，Blade 的 `{{ }}` 語法將會自動調用 PHP `htmlspecialchars` 函數來避免 XSS 攻擊。如果你不想你的數據被轉義，你可以使用下面的語法：
 
     Hello, {!! $name !!}.
 
-> {note} 要非常小心處理用戶輸入的Data時，你應該總是使用 `{{  }}` 語法來轉義內容中的任何的 HTML 元素，以避免 XSS 攻擊。
+> {note} 處理用戶輸入的數據時要非常小心。在顯示用戶提供的數據時，你應該始終使用轉義的 `{{  }}` 語法來防止 XSS 攻擊。
 
 <a name="blade-and-javascript-frameworks"></a>
+
+#### 渲染 JSON
+
+當你將數組傳遞給視圖時，會將數組轉化成  JSON 數據，以此來初始化 JavaScript 變量。例如：
+
+```
+<script>
+    var app = <?php json_encode($array); ?>;
+</script>
+```
+
+你可以使用 Blade 指令 `@json` 來代替手動調用 `json_encode`：
+
+```
+<script>
+    var app = @json($array)
+</script>
+```
+
 ### Blade & JavaScript 框架
 
-由於很多 JavaScript 框架都使用花括號來表明所提供的表達式，所以你可以使用 `@` 符號來告知 Blade 渲染引擎你需要保留這個表達式原始形態，例如：
+由於很多 JavaScript 框架都使用花括號來表示給定的表達式應該在瀏覽器中顯示，你可以使用 `@` 符號來告知 Blade 渲染引擎你需要保留這個表達式原始形態，例如：
 
     <h1>Laravel</h1>
 
     Hello, @{{ name }}.
 
-在這個例子裡，`@` 符號最終會被 Blade 引擎剔除，並且 `{{ name }}` 表達式會被原樣的保留下來，這樣就允許你的 JavaScript 框架來使用它了。
+在這個例子裏，`@` 符號最終會被 Blade 引擎刪除，達到不受 Blade 模板引擎影響的目的，最終 `{{ name }}` 表達式會保持不變使得  JavaScript 框架可以使用它。
 
 #### `@verbatim` 指令
 
-如果你需要在頁面中大片區塊中展示 JavaScript 變量，你可以使用 `@verbatim` 指令來包裹 HTML 內容，這樣你就不需要為每個需要解析的變量增加 `@` 符號前綴了：
+如果你需要在頁面中大部分內容中展示 JavaScript 變量，你可以使用 `@verbatim` 指令來包裹 HTML 內容，這樣你就不必在每個Blade 打印語句前加上 `@` 符號：
+
 
     @verbatim
         <div class="container">
@@ -172,14 +200,16 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
     @endverbatim
 
 <a name="control-structures"></a>
-## 控制結構
 
-除了樣板繼承與Data顯示的功能以外，Blade 也給一般的 PHP 結構控制語句提供了方便的縮寫，比如條件表達式和循環語句。這些縮寫提供了更為清晰簡明的方式來使用 PHP 的控制結構，而且還保持與 PHP 語句的相似性。
+## 流程控制
+
+除了模板繼承與數據顯示的功能以外，Blade 還提供了常見的 PHP 流程控制語句，比如條件表達式和循環語句。這些語句與 PHP 語句的相似，與其一樣清晰簡明。
 
 <a name="if-statements"></a>
+
 ### If 語句
 
-你可以通過 `@if`, `@elseif`, `@else` 及  `@endif` 指令構建 `if` 表達式。這些命令的功能等同於在 PHP 中的語法：
+你可以使用 `@if`、`@elseif`、`@else` 及  `@endif` 指令來構建 `if` 表達式。這些命令的功能等同於 PHP 中的語法：
 
     @if (count($records) === 1)
         我有一條記錄！
@@ -189,16 +219,44 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
         我沒有任何記錄！
     @endif
 
-為了方便，Blade 也提供了一個 `@unless` 命令：
+為了方便，Blade 還提供了一個 `@unless` 命令：
 
     @unless (Auth::check())
         你尚未登錄。
     @endunless
 
+除了以上的條件指令之外，`@isset` 和 `@empty` 指令也可以視為與 PHP 函數有相同的功能：
+
+    @isset($records)
+        // $records 被定義並且不為空...
+    @endisset
+
+    @empty($records)
+        // $records 是「空」的...
+    @endempty
+    
+### Switch 語句
+
+可以使用 `@switch`、`@case`、`@break`、`@default` 和 `@endswitch` 指令來構建 Switch 語句：
+
+    @switch($i)
+        @case(1)
+            First case...
+            @break
+
+        @case(2)
+            Second case...
+            @break
+
+        @default
+            Default case...
+    @endswitch
+
 <a name="loops"></a>
+
 ### 循環
 
-除了條件表達式外，Blade 也支持 PHP 的循環結構，這些命令的功能等同於在 PHP 中的語法：
+除了條件表達式外，Blade 也支持 PHP 的循環結構。同樣，以下這些指令中的每一個都與其 PHP 對應的函數相同：
 
     @for ($i = 0; $i < 10; $i++)
         目前的值為 {{ $i }}
@@ -215,12 +273,12 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
     @endforelse
 
     @while (true)
-        <p>我永遠都在跑循環。</p>
+        <p>死循環了。</p>
     @endwhile
 
-> {tip} 當循環時，你可以使用 [循環變量](#the-loop-variable) 來獲取循環中有價值的信息，比如循環中的首次或最後的迭代。
+> {tip} 循環時，你可以使用 [循環變量](#the-loop-variable) 來獲取循環的信息，例如是否在循環中進行第一次或最後一次叠代。
 
-當使用循環時，你可能也需要一些結束循環或者跳出當前循環的命令：
+當使用循環時，你也可以結束循環或跳過當前叠代：
 
     @foreach ($users as $user)
         @if ($user->type == 1)
@@ -234,7 +292,7 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
         @endif
     @endforeach
 
-你也可以使用命令聲明包含條件的方式在一條語句中達到中斷:
+你還可以使用一行代碼包含指令聲明的條件：
 
     @foreach ($users as $user)
         @continue($user->type == 1)
@@ -245,23 +303,24 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
     @endforeach
 
 <a name="the-loop-variable"></a>
+
 ### 循環變量
 
-當循環時，你可以在循環內訪問 `$loop` 變量。這個變量可以提供一些有用的信息，比如當前循環的索引，當前循環是不是首次迭代，又或者當前循環是不是最後一次迭代：
+循環時，可以在循環內使用 `$loop` 變量。這個變量可以提供一些有用的信息，比如當前循環的索引，當前循環是不是首次叠代，又或者當前循環是不是最後一次叠代：
 
     @foreach ($users as $user)
         @if ($loop->first)
-            This is the first iteration.
+            這是第一個叠代。
         @endif
 
         @if ($loop->last)
-            This is the last iteration.
+            這是最後一個叠代。
         @endif
 
         <p>This is user {{ $user->id }}</p>
     @endforeach
 
-如果你是在一個嵌套的循環中，你可以通過使用 `$loop` 變量的 `parent` 屬性來獲取父循環中的 `$loop` 變量：
+在一個嵌套的循環中，可以通過使用 `$loop` 變量的 `parent` 屬性來獲取父循環中的 `$loop` 變量：
 
     @foreach ($users as $user)
         @foreach ($user->posts as $post)
@@ -273,39 +332,43 @@ Blade 的兩個主要優點是 _樣板繼承_ 和 _區塊_ 。
 
 `$loop` 變量也包含了其它各種有用的屬性：
 
-屬性  | 描述
-------------- | -------------
-`$loop->index`  |  當前循環所迭代的索引，起始為 0。
-`$loop->iteration`  |  當前迭代數，起始為 1。
-`$loop->remaining`  |  循環中迭代剩余的數量。
-`$loop->count`  |  被迭代項的總數量。
-`$loop->first`  |  當前迭代是否是循環中的首次迭代。
-`$loop->last`  |  當前迭代是否是循環中的最後一次迭代。
-`$loop->depth`  |  當前循環的嵌套深度。
-`$loop->parent`  |  當在嵌套的循環內時，可以訪問到父循環中的 $loop 變量。
+| 屬性 | 描述 |
+| ------- | ------ |
+| `$loop->index`     | 當前循環叠代的索引（從0開始）。   |
+| `$loop->iteration` | 當前循環叠代 （從1開始）。     |
+| `$loop->remaining` | 循環中剩余叠代數量。         |
+| `$loop->count`     | 叠代中的數組項目總數。        |
+| `$loop->first`     | 當前叠代是否是循環中的首次叠代。   |
+| `$loop->last`      | 當前叠代是否是循環中的最後一次叠代。 |
+| `$loop->depth`     | 當前循環的嵌套級別。         |
+| `$loop->parent`    | 在嵌套循環中，父循環的變量。     |
 
 <a name="comments"></a>
-### 注釋
 
-Blade 也允許在頁面中定義注釋，然而，跟 HTML 的注釋不同的是，Blade 注釋不會被包含在應用程序返回的 HTML 內：
+### 註釋
 
-    {{-- 此注釋將不會出現在渲染後的 HTML --}}
+Blade 也能在視圖中定義註釋。然而，跟 HTML 的註釋不同的，Blade 註釋不會被包含在應用程序返回的 HTML 內：
+
+    {{-- 此註釋將不會出現在渲染後的 HTML --}}
 
 <a name="php"></a>
 ### PHP
 
-在某些情況下，它對於你在視圖文件中嵌入 php 代碼是非常有幫助的。你可以在你的模版中使用 Blade 提供的 `@php` 指令來執行一段純 PHP 代碼：
+在某些情況下，將 PHP 代碼嵌入到視圖中很有用。你可以使用 Blade 的 `@php` 指令在模板中執行一段純 PHP 代碼：
 
     @php
         //
     @endphp
 
-> {tip} 雖然 Blade 提供了這個功能，但頻繁地使用也同時意味著你在你的模版中嵌入了太多的邏輯了。
+> {tip} 雖然 Blade 提供了這個功能，但頻繁地使用意味著你的模版被嵌入了太多的邏輯。
 
 <a name="including-sub-views"></a>
+
 ## 引入子視圖
 
 你可以使用 Blade 的 `@include` 命令來引入一個已存在的視圖，所有在父視圖的可用變量在被引入的視圖中都是可用的。
+
+使用 Blade 的 `@include` 指令可以在 Blade 視圖中引入另一個視圖。父視圖可用的所有變量將提供給引入的視圖：
 
     <div>
         @include('shared.errors')
@@ -315,42 +378,51 @@ Blade 也允許在頁面中定義注釋，然而，跟 HTML 的注釋不同的�
         </form>
     </div>
 
-盡管被引入的視圖會繼承父視圖中的所有Data，你也可以通過傳遞額外的數組Data至被引入的頁面：
+被引入的視圖會繼承父視圖中的所有數據，同時也可以向引入的視圖傳遞額外的數組數據：
 
     @include('view.name', ['some' => 'data'])
 
-當然，如果你嘗試使用 `@include` 去引用一個不存在的視圖，Laravel 會拋出錯誤。如果你想引入一個視圖，而你又無法確認這個視圖存在與否，你可以使用 `@includeIf` 指令:
+當然，如果嘗試使用 `@include` 去引入一個不存在的視圖，Laravel 會拋出錯誤。如果想引入一個可能存在或可能不存在的視圖，就使用 `@includeIf` 指令:
 
     @includeIf('view.name', ['some' => 'data'])
 
-> {note} 請避免在 Blade 視圖中使用 `__DIR__` 及 `__FILE__` 常量，因為他們會引用視圖被緩存的位置。
+如果要根據給定的布爾條件 `@include` 視圖，可以使用 `@includeWhen` 指令：
+
+    @includeWhen($boolean, 'view.name', ['some' => 'data'])
+
+> {note} 請避免在 Blade 視圖中使用 `__DIR__` 及 `__FILE__` 常量，因為它們會引用編譯視圖時緩存的位置。
 
 <a name="rendering-views-for-collections"></a>
+
 ### 為集合渲染視圖
 
-你可以使用 Blade 的 `@each` 命令將循環及引入結合成一行代碼：
+你可以使用 Blade 的 `@each` 命令將循環及引入寫成一行代碼：
 
     @each('view.name', $jobs, 'job')
+第一個參數是對數組或集合中的每個元素進行渲染的部分視圖。第二個參數是要叠代的數組或集合，而第三個參數是將被分配給視圖中當前叠代的變量名稱。舉個例子，如果你要叠代一個 `jobs` 數組，通常會使用子視圖中的變量 `job` 來獲取每個 job。當前叠代的 `key` 將作為子視圖中的 `key` 變量。
 
-第一個參數為每個元素要渲染的子視圖，第二個參數是你要迭代的數組或集合，而第三個參數為迭代時被分配至子視圖中的變量名稱。舉個例子，如果你需要迭代一個 `jobs` 數組，通常子視圖會使用 `job` 作為變量來訪問 job 信息。子視圖使用 `key` 變量作為當前迭代的鍵名。
-
-你也可以傳遞第四個參數到 `@each` 命令。當需要迭代的數組為空時，將會使用這個參數提供的視圖來渲染。
+你也可以傳遞第四個參數到 `@each` 命令。當需要叠代的數組為空時，將會使用這個參數提供的視圖來渲染。
 
     @each('view.name', $jobs, 'job', 'view.empty')
 
-<a name="stacks"></a>
-## 堆疊
+> {note} 通過 `@each` 渲染的視圖不會從父視圖繼承變量。 如果子視圖需要這些變量，則應該使用 `@foreach` 和 `@include`。
 
-Blade 也允許你在其它視圖或layout中為已經命名的堆棧中壓入Data，這在子視圖中引入必備的 JavaScript 類庫時尤其有用：
+<a name="stacks"></a>
+
+## 堆棧
+
+Blade 可以被推送到在其他視圖或布局中的其他位置渲染的命名堆棧。這在子視圖中指定所需的 JavaScript 庫時非常有用：
 
     @push('scripts')
         <script src="/example.js"></script>
     @endpush
 
-你可以根據需要多次壓入堆棧，通過 `@stack` 命令中鍵入堆棧的名字來渲染整個堆棧：
+你可以根據需要多次壓入堆棧，通過 `@stack` 命令中傳遞堆棧的名稱來渲染完整的堆棧內容：
 
     <head>
         <!-- Head Contents -->
 
         @stack('scripts')
     </head>
+
+<a name="service-injection"></a>
