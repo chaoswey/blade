@@ -24,4 +24,6 @@ vendor/**/Makefile
 vendor/**/CONTRIBUTING.md
 vendor/**/.gitlab-ci.yml
 vendor/**/var/
+vendor/**/.editorconfig
+vendor/**/LICENSE.md
 html/
