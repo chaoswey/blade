@@ -92,7 +92,7 @@ Apache 設定 `AllowOverride All`
 |app|自動產生 Html 快取，主程式|
 |public|min.js、min.css、img...etc|
 |vendor|核心程式|
-|resources|<ul><li>- assets: style、js、img 原始碼</li><li>- views: blade.php</li></ul>|
+|resources|<ul><li>- style、js、img 原始碼</li><li>- views: blade.php</li></ul>|
 
 
 ## require package ##
