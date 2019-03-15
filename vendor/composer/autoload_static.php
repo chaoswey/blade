@@ -16,6 +16,7 @@ class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Contracts\\' => 18,
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Debug\\' => 24,
@@ -41,6 +42,10 @@ class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
+        ),
         'A' => 
         array (
             'App\\' => 4,
@@ -51,6 +56,10 @@ class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Contracts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/contracts',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (
@@ -112,14 +121,14 @@ class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
-    );
-
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -127,7 +136,6 @@ class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89::$fallbackDirsPsr4;
 
         }, null, ClassLoader::class);
     }
