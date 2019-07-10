@@ -14,7 +14,6 @@ vendor/**/.gitignore
 vendor/**/Tests
 vendor/**/tests
 vendor/**/Test
-vendor/**/tests
 vendor/**/test
 vendor/**/Testing
 vendor/**/build-phar.sh
@@ -26,4 +25,8 @@ vendor/**/.gitlab-ci.yml
 vendor/**/var/
 vendor/**/.editorconfig
 vendor/**/LICENSE.md
+vendor/**/phpmd.xml
+vendor/**/.multi-tester.yml
+vendor/**/phpmd.xml
+vendor/**/.github
 html/
