@@ -61,6 +61,11 @@ class Url
         return $this->host .= $path;
     }
 
+    /**
+     * @example "asset('css/style.css')" http://localhost/css/style.css
+     * @param null $content /public
+     * @return string
+     */
     public function asset($content = null)
     {
         if ($this->isCommandLineInterface()) {
