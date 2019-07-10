@@ -41,8 +41,11 @@ class Generator extends Command
         $target = $this->getTargetPath($root);
         $this->info("target dir :" . $target);
         if (!$filesystem->isDirectory($target)) {
-            $this->info("make target dir success.");
-            $filesystem->makeDirectory($target, 0777, true);
+            try {
+                $filesystem->makeDirectory($target, 0777, true);
+            } catch (\Exception $e) {
+                $this->error("make target dir fail. error msg:" . $e->getMessage());
+            }
         }
         $this->copyPublicAllFiles($root, $target);
 
@@ -129,11 +132,20 @@ class Generator extends Command
         $this->filesystem->copy($file, $target);
     }
 
+    /**
+     * @param $target
+     * @throws \Exception
+     */
     private function makeDir($target)
     {
         $path = pathinfo($target);
         if (!$this->filesystem->isDirectory($path['dirname'])) {
-            $this->filesystem->makeDirectory($path['dirname'], 0777, true);
+            try {
+                $this->filesystem->makeDirectory($path['dirname'], 0777, true);
+            } catch (\Exception $e) {
+                $this->error("make target dir fail. error msg:" . $e->getMessage());
+                throw new \Exception($e->getMessage());
+            }
         }
     }
 
@@ -159,6 +171,12 @@ class Generator extends Command
     private function info($msg)
     {
         $msg = sprintf("<info>%s</info>", OutputFormatter::escape($msg));
+        $this->output->writeln($msg);
+    }
+
+    private function error($msg)
+    {
+        $msg = sprintf("<error>%s</error>", OutputFormatter::escape($msg));
         $this->output->writeln($msg);
     }
 }
