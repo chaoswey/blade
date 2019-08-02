@@ -1,6 +1,6 @@
 <?php namespace App;
 
-use Philo\Blade\Blade;
+use Jenssegers\Blade\Blade;
 
 class Route
 {
@@ -55,7 +55,7 @@ class Route
     public function views()
     {
         $blade = new Blade($this->views, $this->cache);
-        return $blade->view()->make($this->path)->render();
+        return $blade->make($this->path)->render();
     }
 
     /**

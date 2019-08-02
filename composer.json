@@ -1,6 +1,6 @@
 {
   "require": {
-    "philo/laravel-blade": "^3.1",
+    "jenssegers/blade": "^v1.2.2",
     "symfony/console": "^4.2"
   },
   "autoload": {

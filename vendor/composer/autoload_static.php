@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
+class ComposerStaticInit9c1394b97ce11b759f7b7cfff897c353
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -30,7 +30,10 @@ class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
-            'Philo\\Blade\\' => 12,
+        ),
+        'J' => 
+        array (
+            'Jenssegers\\Blade\\' => 17,
         ),
         'I' => 
         array (
@@ -100,9 +103,9 @@ class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Philo\\Blade\\' => 
+        'Jenssegers\\Blade\\' => 
         array (
-            0 => __DIR__ . '/..' . '/philo/laravel-blade/src',
+            0 => __DIR__ . '/..' . '/jenssegers/blade/src',
         ),
         'Illuminate\\View\\' => 
         array (
@@ -149,9 +152,9 @@ class ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfa8d88b6a132b14767c6138e5e263d89::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9c1394b97ce11b759f7b7cfff897c353::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9c1394b97ce11b759f7b7cfff897c353::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit9c1394b97ce11b759f7b7cfff897c353::$classMap;
 
         }, null, ClassLoader::class);
     }
