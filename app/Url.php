@@ -19,7 +19,7 @@ class Url
 
     public function get($path = null)
     {
-        return $this->base_url . '/' . ltrim('$path', '/');
+        return $this->base_url . '/' . ltrim($path, '/');
     }
 
     /**
