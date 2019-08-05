@@ -2,7 +2,8 @@
 
 return [
     'ignore' => [
-        '_partials/*',
-        '_layouts/*'
-    ]
+        '_layouts/*',
+        '_partials/*'
+    ],
+    'export' => '_export'
 ];
