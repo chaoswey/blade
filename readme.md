@@ -6,6 +6,8 @@
 
 不需要 composer install, vendor 打包進專案裡面，預防 前端工程師 or 網頁設計師 不會使用
 
+使用 [語意化版本 2.0](https://semver.org/lang/zh-TW/)
+
 ## 使用方式
 
 依照 創建 blade 目錄 生成 route
@@ -135,14 +137,25 @@ blade 輸出成 html
 
 預設會在當前目錄下創建 `html` 目錄
 
-
 ```
 php cc b2html
 ```
 
 指定特定目錄 `--output=path`
 
-
 ```
 php cc b2html --output=D:\html
+```
+
+以下有幾個要輸入
+
+1. 清除目標資料夾嗎? 輸入 yes or no 預設是 NO
+```
+Clear Target Dir ? [yes,default: no] no
+```
+
+2. 輸入新的網址 列如: http://www.demo.com.tw ， https://www.demo.com.tw 或者 http://www.demo.com.tw/project
+
+```
+Enter new URL: http://www.demo.com.tw
 ```

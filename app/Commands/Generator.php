@@ -1,14 +1,17 @@
 <?php namespace App\Commands;
 
+use App\Component\Url;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Console\Question\Question;
 use Illuminate\Filesystem\Filesystem;
-use Jenssegers\Blade\Blade;
 use Illuminate\Support\Str;
+use Jenssegers\Blade\Blade;
 
 class Generator extends Command
 {
@@ -22,8 +25,7 @@ class Generator extends Command
 
     protected function configure()
     {
-        $this
-            ->setName('b2html')
+        $this->setName('b2html')
             ->setDescription('blade generate static html')
             ->setHelp('blade generate static html')
             ->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'generate static html output path', null);
@@ -47,11 +49,40 @@ class Generator extends Command
                 $this->error("make target dir fail. error msg:" . $e->getMessage());
             }
         }
+
+        $this->clearTargetDir($input, $output, $target);
+
         $this->copyPublicAllFiles($root, $target);
 
         $this->info("\nGenerator html for blade.");
 
+        $this->inputNewUrl($input, $output);
+
         $this->generatorHtml($root, $target);
+    }
+
+    private function clearTargetDir($input, $output, $target)
+    {
+        $helper = $this->getHelper('question');
+
+        $question = new ConfirmationQuestion('Clear Target Dir ? [yes,default: no] ', false);
+
+        if ($helper->ask($input, $output, $question)) {
+            $this->filesystem->cleanDirectory($target);
+        }
+    }
+
+    private function inputNewUrl($input, $output)
+    {
+        $helper = $this->getHelper('question');
+
+        $question = new Question('Enter new URL  [http://www.example.com]: ');
+
+        $base_url = $helper->ask($input, $output, $question);
+
+        Url::setInstance($base_url);
+
+        $this->info("new URL: " . $base_url);
     }
 
     private function generatorHtml($root, $path)

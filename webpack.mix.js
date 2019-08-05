@@ -23,11 +23,8 @@ mix.sass('resources/sass/style.scss', 'public/css').options({postCss: [require('
 mix.options({processCssUrls: false});
 
 if (!mix.inProduction()) {
-    mix.webpackConfig({
-        devtool: 'source-map'
-    }).sourceMaps()
+    mix.webpackConfig({devtool: 'source-map'}).sourceMaps()
 }
-
 
 /*
  |--------------------------------------------------------------------------

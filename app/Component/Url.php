@@ -19,4 +19,9 @@ class Url
         }
         return self::$instance;
     }
+
+    public static function setInstance($base_url = null)
+    {
+        self::$instance = new UrlBuilder($base_url);
+    }
 }

@@ -2,27 +2,24 @@
 
 class Url
 {
-    protected $request;
-
     protected $public_url;
 
     protected $base_url;
 
-    public function __construct()
+    public function __construct($base_url = null)
     {
-        $this->request = \App\Component\Request::getInstance();
-
-        $this->base_url = $this->request->getSchemeAndHttpHost() . $this->request->getBaseUrl();
+        if (!empty($base_url)) {
+            $this->base_url = $base_url;
+        } else {
+            $request = \App\Component\Request::getInstance();
+            $this->base_url = $request->getSchemeAndHttpHost() . $request->getBaseUrl();
+        }
         $this->public_url = $this->base_url . '/public/';
     }
 
     public function get($path = null)
     {
-        if ($this->isCommandLineInterface()) {
-            return '/' . trim(trim($path), '/');
-        } else {
-            return $this->base_url . $path;
-        }
+        return $this->base_url . $path;
     }
 
     /**
@@ -32,15 +29,6 @@ class Url
      */
     public function asset($content = null)
     {
-        if ($this->isCommandLineInterface()) {
-            return '/' . trim(trim($content), '/');
-        } else {
-            return $this->public_url . trim(trim($content), '/');
-        }
-    }
-
-    private function isCommandLineInterface()
-    {
-        return (php_sapi_name() === 'cli');
+        return $this->public_url . trim(trim($content), '/');
     }
 }

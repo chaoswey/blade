@@ -15,6 +15,16 @@
         2. 移除 沒在使用的套件
         
         3. fix: sourceMaps 可能沒生成的問題
+        
+        4. autoprefixer 增加檔案 .browserslistrc，browserslistrc 設定瀏覽器的版本
+        
+    5. 現在無法直接從網址讀取 _layouts  及 _partials 資料夾
+    
+    6. php cc b2html
+    
+        1. 增加功能 詢問是否清空目標 資料夾
+        
+        2. 增加功能 url and asset 轉換成絕對網址
 
 * 2.1.0
 

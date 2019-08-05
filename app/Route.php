@@ -66,20 +66,43 @@ class Route
         (new RedirectResponse($url))->send();
     }
 
+    private function ignore()
+    {
+        $root = dirname(__DIR__);
+        $config = require $root . '/app/config.php';
+        $ignores = $config['ignore'];
+        $path = ltrim($this->path, '/');
+
+        foreach ($ignores as $ignore) {
+            if (Str::is($ignore, $path)) {
+                return true;
+            }
+            continue;
+        }
+        return false;
+    }
+
     /**
      * 回傳 blade檔案
      */
     public function views()
     {
         try {
-            $blade = new Blade($this->views, $this->cache);
-            if ($blade->exists($this->path)) {
-                $response = new Response($blade->make($this->path)->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
-                $response->send();
-            } elseif ($blade->exists($this->path . '/index')) {
-                $this->redirect($this->path . '/');
-            } else {
+            if ($this->ignore()) {
                 throw new \Exception("blade not exists.");
+            }
+
+            $blade = new Blade($this->views, $this->cache);
+            switch (true) {
+                case $blade->exists($this->path):
+                    $response = new Response($blade->make($this->path)->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
+                    $response->send();
+                    break;
+                case $blade->exists($this->path . '/index'):
+                    $this->redirect($this->path . '/');
+                    break;
+                default:
+                    throw new \Exception("blade not exists.");
             }
         } catch (\Exception $e) {
             $this->error();
