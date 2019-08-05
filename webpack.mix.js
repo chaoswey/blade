@@ -1,4 +1,4 @@
-const {mix} = require('laravel-mix');
+const mix = require('laravel-mix');
 /*
  |--------------------------------------------------------------------------
  | 各個JS合併成一隻檔案
@@ -12,14 +12,7 @@ mix.scripts(['resources/js/weya.js'], 'public/js/weya.js');
  | processCssUrls 不改變 url:()
  |--------------------------------------------------------------------------
  */
-mix.sass('resources/sass/style.scss', 'public/css')
-    .options({
-        postCss: [
-            require('autoprefixer')({
-                browsers: ['last 4 versions']
-            })
-        ]
-    });
+mix.sass('resources/sass/style.scss', 'public/css').options({postCss: [require('autoprefixer')]});
 
 /*
  |--------------------------------------------------------------------------

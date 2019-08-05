@@ -27,6 +27,7 @@ vendor/**/.editorconfig
 vendor/**/LICENSE.md
 vendor/**/phpmd.xml
 vendor/**/.multi-tester.yml
+vendor/**/Tester
 vendor/**/.github
 vendor/**README.md
 html/

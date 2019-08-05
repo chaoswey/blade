@@ -1,5 +1,21 @@
 ## 更新說明 ##
 
+* 3.0.0
+    
+    1. 移除 CopyWebpackPlugin ImageminPlugin imageminMozjpeg
+    
+    2. 增加 symfony/http-foundation
+    
+    3. 重構 核心
+    
+    4. package.json
+        
+        1. 增加 autoprefixer
+        
+        2. 移除 沒在使用的套件
+        
+        3. fix: sourceMaps 可能沒生成的問題
+
 * 2.1.0
 
     移除 沒用 doc
@@ -29,7 +45,7 @@
 * 1.3.0
 
     重構主架構
-    
+   
     調整 路由
     
     提高安全性

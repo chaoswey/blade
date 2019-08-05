@@ -1,6 +1,10 @@
 <?php namespace App;
 
 use Jenssegers\Blade\Blade;
+use App\Component\Request;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class Route
 {
@@ -20,135 +24,75 @@ class Route
     protected $cache;
 
     /**
-     * 執行檔位置
+     * request
      */
-    protected $scriptName;
+    protected $request;
 
     /**
-     * 網址
-     */
-    protected $requestURI;
-
-    /**
-     * 實體檔案位置
-     */
-    protected $filePath;
-
-    /**
-     * blade 檔案格式
+     * request
      */
     protected $path;
 
     public function __construct($views, $error, $cache)
     {
+        $this->request = Request::getInstance();
+        $this->path = $this->builder($this->request->getPathInfo());
+
         $this->views = $views;
         $this->error = $error;
         $this->cache = $cache;
-        $this->scriptName = $this->removeIndex($_SERVER['SCRIPT_NAME']);
-        $this->requestURI = $this->removeIndex($_SERVER['REQUEST_URI']);
-        $this->combinationFolder();
     }
 
     /**
-     * 回傳blade檔案格式
+     * 路徑整理
+     *
+     * @param string $path
+     * @return string
+     */
+    protected function builder($path)
+    {
+        //有 index 轉跳 /
+        Str::is('*index', $path) && $this->redirect(str_replace('index', '', $path));
+
+        //  / 轉成index
+        $path == '/' && $path = 'index';
+        substr($path, -1) == '/' && $path .= 'index';
+
+        return $path;
+    }
+
+    public function redirect($url)
+    {
+        (new RedirectResponse($url))->send();
+    }
+
+    /**
+     * 回傳 blade檔案
      */
     public function views()
     {
-        $blade = new Blade($this->views, $this->cache);
-        return $blade->make($this->path)->render();
-    }
-
-    /**
-     * 判斷檔案
-     */
-    protected function blade_exists()
-    {
-        $file = "{$this->views}/{$this->filePath}.blade.php";
-        if (windows_os()) {
-            $file = str_replace('/', '\\', $file);
-        }
-        return file_exists($file);
-    }
-
-
-    /**
-     * 檢查檔案或者資料夾
-     *
-     * @param bool $dir
-     */
-    protected function route_exists($dir = false)
-    {
         try {
-            if (!$this->blade_exists()) {
-                if ($dir) {
-                    throw new \Exception('404');
-                }
-                $this->path .= '.index';
-                $this->filePath .= '/index';
-                $this->route_exists(true);
+            $blade = new Blade($this->views, $this->cache);
+            if ($blade->exists($this->path)) {
+                $response = new Response($blade->make($this->path)->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
+                $response->send();
+            } elseif ($blade->exists($this->path . '/index')) {
+                $this->redirect($this->path . '/');
+            } else {
+                throw new \Exception("blade not exists.");
             }
         } catch (\Exception $e) {
             $this->error();
         }
     }
 
+    /**
+     * 回傳 404檔案
+     */
     public function error()
     {
-        header("HTTP/1.0 404 Not Found");
         $blade = new Blade($this->error, $this->cache);
-        return $blade->view()->make('404')->render();
-    }
-
-    /**
-     * 將 URI / 轉換成 .
-     */
-    protected function combinationFile()
-    {
-        $this->path = preg_replace('/\//', '.', $this->filePath);
-        if (empty($this->path) || substr($this->path, -1) == '.') {
-            $this->filePath .= 'index';
-            $this->path .= 'index';
-        }
-        $this->route_exists();
-    }
-
-    /**
-     * 移除 ? 及 # 之後字串
-     * 移除 特殊字型
-     *
-     * @return mixed
-     */
-    protected function removeQueryString()
-    {
-        $this->filePath = preg_replace('/(\?.*)|(#.*)/', '', ltrim($this->requestURI, '/'));
-        $filepath = explode('/', $this->filePath);
-        foreach ($filepath as $k => $file) {
-            $filepath[$k] = preg_replace('/[^A-Za-z0-9\-\_]/', '', $file);
-        }
-        $this->filePath = implode('/', $filepath);
-        $this->combinationFile();
-    }
-
-    /**
-     * 如果用資料夾模式打開 組合資料夾
-     */
-    protected function combinationFolder()
-    {
-        if (!empty($this->scriptName)) {
-            $this->scriptName = addcslashes($this->scriptName, '/');
-            $this->requestURI = preg_replace("/{$this->scriptName}/", '', $this->requestURI);
-        }
-        $this->removeQueryString();
-    }
-
-    /**
-     * 移除index.php
-     *
-     * @param $str
-     * @return mixed
-     */
-    protected function removeIndex($str)
-    {
-        return preg_replace('/\/index.php/', '', $str);
+        $response = new Response($blade->make('404')->render(), Response::HTTP_NOT_FOUND, ['content-type' => 'text/html']);
+        $response->send();
     }
 }

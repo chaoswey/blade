@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Illuminate\Filesystem\Filesystem;
-use Philo\Blade\Blade;
+use Jenssegers\Blade\Blade;
 use Illuminate\Support\Str;
 
 class Generator extends Command
@@ -73,7 +73,7 @@ class Generator extends Command
         foreach ($files as $file) {
             $target = $this->path_replace($views, $path, $file);
             $file = str_replace([$this->getPath($views . "/"), ".blade.php"], "", $file);
-            $html = $blade->view()->make($file)->render();
+            $html = $blade->make($file)->render();
             $this->generate($target, $html);
             $progressBar->advance();
         }

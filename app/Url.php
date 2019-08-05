@@ -2,67 +2,31 @@
 
 class Url
 {
-    protected $host;
+    protected $request;
 
-    protected $root;
+    protected $public_url;
 
-    protected $scriptName;
+    protected $base_url;
 
     public function __construct()
     {
-        $this->getHost();
-    }
+        $this->request = \App\Component\Request::getInstance();
 
-    protected function getHost()
-    {
-        if (!$this->isCommandLineInterface()) {
-            $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
-            $this->host = $protocol . '://' . $_SERVER['HTTP_HOST'];
-        }
-        $this->getRoot();
-    }
-
-    protected function getRoot()
-    {
-        if ($this->isCommandLineInterface()) {
-            $this->host .= '/';
-        } else {
-            $this->removeIndex();
-            $this->host .= $this->scriptName . "/";
-        }
-    }
-
-    protected function removeIndex()
-    {
-        $this->scriptName = preg_replace('/\/index.php/', '', $_SERVER['SCRIPT_NAME']);
+        $this->base_url = $this->request->getSchemeAndHttpHost() . $this->request->getBaseUrl();
+        $this->public_url = $this->base_url . '/public/';
     }
 
     public function get($path = null)
     {
-        if (!$this->isCommandLineInterface()) {
-            if (preg_match('/index.php/', $_SERVER['REQUEST_URI'])) {
-                $this->host .= 'index.php/';
-            }
-        }
-        $path = trim(trim($path), '/');
-        $pathArray = explode('/', $path);
-
-        if (!$this->isCommandLineInterface()) {
-            if (end($pathArray) == "index") {
-                array_pop($pathArray);
-            }
-        }
-
-        $path = implode("/", $pathArray);
-
         if ($this->isCommandLineInterface()) {
-            $path .= '.html';
+            return '/' . trim(trim($path), '/');
+        } else {
+            return $this->base_url . $path;
         }
-        return $this->host .= $path;
     }
 
     /**
-     * @example "asset('css/style.css')" http://localhost/css/style.css
+     * @example "asset('css/style.css')" http://localhost/public/css/style.css
      * @param null $content /public
      * @return string
      */
@@ -71,7 +35,7 @@ class Url
         if ($this->isCommandLineInterface()) {
             return '/' . trim(trim($content), '/');
         } else {
-            return $this->host . 'public/' . trim(trim($content), '/');
+            return $this->public_url . trim(trim($content), '/');
         }
     }
 

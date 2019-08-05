@@ -1,7 +1,8 @@
 {
   "require": {
     "jenssegers/blade": "^v1.2.2",
-    "symfony/console": "^4.2"
+    "symfony/console": "^4.3",
+    "symfony/http-foundation": "^4.3"
   },
   "autoload": {
     "psr-4": {
