@@ -1,4 +1,3 @@
-
 # Blade模板
 
 - [簡介](#introduction)
@@ -13,7 +12,7 @@
     - [Switch 語句](#switch-statements)
     - [循環](#loops)
     - [循環變量](#the-loop-variable)
-    - [注釋](#comments)
+    - [註釋](#comments)
     - [PHP](#php)
 - [表單](#forms)
     - [CSRF 字段](#csrf-field)
@@ -21,7 +20,7 @@
 - [引入子視圖](#including-sub-views)
     - [為集合渲染視圖](#rendering-views-for-collections)
 - [堆棧](#stacks)
-- [服務注入](#service-injection)
+- [服務註入](#service-injection)
 - [Blade 擴展](#extending-blade)
     - [自定義 If 語句](#custom-if-statements)
 
@@ -55,14 +54,14 @@ Blade 的兩個主要優點是`模板繼承`和`區塊 `。為方便入門，讓
         </body>
     </html>
 
-如你所見，該文件包含了典型的 HTML 語法。不過，請注意 `@section` 和 `@yield` 指令。 `@section` 指令定義了視圖的一部分內容，而 `@yield` 指令是用來顯示指定部分的內容。
+如你所見，該文件包含了典型的 HTML 語法。不過，請註意 `@section` 和 `@yield` 指令。 `@section` 指令定義了視圖的一部分內容，而 `@yield` 指令是用來顯示指定部分的內容。
 
 現在，我們已經定義好了這個應用程序的布局，接下來，我們定義一個繼承此布局的子頁面。
 
 <a name="extending-a-layout"></a>
 ### 擴展布局
 
-在定義一個子視圖時，使用 Blade 的 `@extends` 指令指定子視圖要「繼承」的視圖。擴展自 Blade 布局的視圖可以使用 `@section` 指令向布局片段注入內容。就如前面的示例中所示，這些片段的內容將由布局中的顯示在布局中 `@yield` 指令控制顯示：
+在定義一個子視圖時，使用 Blade 的 `@extends` 指令指定子視圖要「繼承」的視圖。擴展自 Blade 布局的視圖可以使用 `@section` 指令向布局片段註入內容。就如前面的示例中所示，這些片段的內容將由布局中的顯示在布局中 `@yield` 指令控制顯示：
 
     <!-- 保存在 resources/views/child.blade.php 中 -->
 
@@ -82,7 +81,7 @@ Blade 的兩個主要優點是`模板繼承`和`區塊 `。為方便入門，讓
 
 在這個示例中， `sidebar` 片段利用 `@parent` 指令向布局的 sidebar 追加（而非覆蓋）內容。 在渲染視圖時，`@parent` 指令將被布局中的內容替換。
 
-> {tip} 和上一個示例相反，這裡的  `sidebar` 片段使用  `@endsection` 代替 `@show` 來結尾。 `@endsection` 指令僅定義了一個片段， `@show` 則在定義的同時 **立即 yield** 這個片段。
+> {tip} 和上一個示例相反，這裏的  `sidebar` 片段使用  `@endsection` 代替 `@show` 來結尾。 `@endsection` 指令僅定義了一個片段， `@show` 則在定義的同時 **立即 yield** 這個片段。
 
 Blade 視圖可以使用全局  `view` 助手自路由中返回：
 
@@ -93,7 +92,7 @@ Blade 視圖可以使用全局  `view` 助手自路由中返回：
 <a name="components-and-slots"></a>
 ## 組件 & 插槽
 
-組件和插槽提供了與片段和布局類似的好處；不過組件和插槽的思維模型更易於理解。我們先來看一個可復用的「alert」組件，我們想在應用中復用它：
+組件和插槽提供了與片段和布局類似的好處；不過組件和插槽的思維模型更易於理解。我們先來看一個可覆用的「alert」組件，我們想在應用中覆用它：
 
     <!-- /resources/views/alert.blade.php -->
 
@@ -101,13 +100,13 @@ Blade 視圖可以使用全局  `view` 助手自路由中返回：
         {{ $slot }}
     </div>
 
- `{{ $slot }}` 變量將包含我們想要注入到組件的內容。現在，我們使用 Blade 的 `@component`  指令構建這個組件：
+ `{{ $slot }}` 變量將包含我們想要註入到組件的內容。現在，我們使用 Blade 的 `@component`  指令構建這個組件：
 
     @component('alert')
         <strong>Whoops!</strong> Something went wrong!
     @endcomponent
 
-有時候為一個組件定義多個插槽是很有用的。修改 alert 組件以允許其注入 「title」。命名插槽可以通過與其匹配的 「回顯」 變量顯示：
+有時候為一個組件定義多個插槽是很有用的。修改 alert 組件以允許其註入 「title」。命名插槽可以通過與其匹配的 「回顯」 變量顯示：
 
     <!-- /resources/views/alert.blade.php -->
 
@@ -117,7 +116,7 @@ Blade 視圖可以使用全局  `view` 助手自路由中返回：
         {{ $slot }}
     </div>
 
-現在，我們能夠使用 `@slot` 指令向命名插槽注入內容。不在  `@slot` 指令內的內容都將傳遞給組件中的  `$slot` 變量：
+現在，我們能夠使用 `@slot` 指令向命名插槽註入內容。不在  `@slot` 指令內的內容都將傳遞給組件中的  `$slot` 變量：
 
     @component('alert')
         @slot('title')
@@ -248,7 +247,7 @@ Blade 視圖可以使用全局  `view` 助手自路由中返回：
 <a name="control-structures"></a>
 ## 控制結構
 
-除了模板繼承和數據顯示， Blade 還為分支和循環等 PHP 控制結構提供了方便的快捷方式。這些快捷方式提供了干淨、簡捷地處理 PHP 控制結構的方法，同時保持了與 PHP 中的對應結構的相似性。
+除了模板繼承和數據顯示， Blade 還為分支和循環等 PHP 控制結構提供了方便的快捷方式。這些快捷方式提供了幹凈、簡捷地處理 PHP 控制結構的方法，同時保持了與 PHP 中的對應結構的相似性。
 
 <a name="if-statements"></a>
 ### If 語句
@@ -356,9 +355,9 @@ Blade 視圖可以使用全局  `view` 助手自路由中返回：
         <p>I'm looping forever.</p>
     @endwhile
 
-> {tip} 循環中可以使用 [循環變量](#the-loop-variable) 獲取循環的可評估信息，比如現在是處於循環的第一次迭代還是最後一次迭代中：
+> {tip} 循環中可以使用 [循環變量](#the-loop-variable) 獲取循環的可評估信息，比如現在是處於循環的第一次叠代還是最後一次叠代中：
 
-在循環中，還可以終結循環或路過本次迭代：
+在循環中，還可以終結循環或路過本次叠代：
 
     @foreach ($users as $user)
         @if ($user->type == 1)
@@ -415,19 +414,19 @@ Blade 視圖可以使用全局  `view` 助手自路由中返回：
 
 屬性  | 描述
 ------------- | -------------
-`$loop->index`  |  當前迭代的索引（從 0 開始計數）。
-`$loop->iteration`  |  當前循環迭代 (從 1 開始計算）。
-`$loop->remaining`  |  循環中剩余迭代的數量。
-`$loop->count`  |  被迭代的數組元素的總數。
-`$loop->first`  |  是否為循環的第一次迭代。
-`$loop->last`  |  是否為循環的最後一次迭代。
-`$loop->depth`  |  當前迭代的嵌套深度級數。
+`$loop->index`  |  當前叠代的索引（從 0 開始計數）。
+`$loop->iteration`  |  當前循環叠代 (從 1 開始計算）。
+`$loop->remaining`  |  循環中剩余叠代的數量。
+`$loop->count`  |  被叠代的數組元素的總數。
+`$loop->first`  |  是否為循環的第一次叠代。
+`$loop->last`  |  是否為循環的最後一次叠代。
+`$loop->depth`  |  當前叠代的嵌套深度級數。
 `$loop->parent`  |  嵌套循環中，父循環的循環變量
 
 <a name="comments"></a>
-### 注釋
+### 註釋
 
-Blade 也允許在視圖中定義注釋。不過與 HTML 注釋不同，Blade 注釋不會包含在返回給應用的 HTML 中：
+Blade 也允許在視圖中定義註釋。不過與 HTML 註釋不同，Blade 註釋不會包含在返回給應用的 HTML 中：
 
     {{-- This comment will not be present in the rendered HTML --}}
 
@@ -523,7 +522,7 @@ Blade 的 `@include` 指令允許你從其它視圖中引入 Blade 視圖。父�
 
     @each('view.name', $jobs, 'job')
 
-第一個參數是渲染數組或集合的每個元素的視圖片段。第二個參數是希望被迭代的數組或集合，第三個參數則是將被分配給視圖中當前迭代的變量名。例如，想要迭代 `jobs` 數組，通常會在視圖片段中使用 `job` 變量訪問每個任務。當前迭代的 key 將作為視圖片段中的 `key` 變量。
+第一個參數是渲染數組或集合的每個元素的視圖片段。第二個參數是希望被叠代的數組或集合，第三個參數則是將被分配給視圖中當前叠代的變量名。例如，想要叠代 `jobs` 數組，通常會在視圖片段中使用 `job` 變量訪問每個任務。當前叠代的 key 將作為視圖片段中的 `key` 變量。
 
 也可以向 `@each` 指令傳遞第四個參數。這個參數是當給定數組為空時要渲染的視圖片段。
 
@@ -561,7 +560,7 @@ Blade 允許你將視圖壓入堆棧，這些視圖能夠在其它視圖或布�
     @endprepend
 
 <a name="service-injection"></a>
-## Service 注入
+## Service 註入
 
  `@inject` 指令可以用於自 Laravel 的 [服務容器](/docs/{{version}}/container) 中獲取服務。傳遞給 `@inject` 的第一個參數是將要置入的服務變量名，第二個參數是希望被解析的類或接口名：
 
@@ -590,7 +589,7 @@ Blade 允許你使用 `directive` 方法自定義指令。當 Blade 編譯器遇
     class AppServiceProvider extends ServiceProvider
     {
         /**
-         * 執行注冊後引導服務.
+         * 執行註冊後引導服務.
          *
          * @return void
          */
@@ -602,7 +601,7 @@ Blade 允許你使用 `directive` 方法自定義指令。當 Blade 編譯器遇
         }
 
         /**
-         * 在容器中注冊綁定.
+         * 在容器中註冊綁定.
          *
          * @return void
          */
@@ -621,12 +620,12 @@ Blade 允許你使用 `directive` 方法自定義指令。當 Blade 編譯器遇
 <a name="custom-if-statements"></a>
 ### 自定義 If 語句
 
-在定義簡單的、自定義條件語句時，編寫自定義指令比必須的步驟復雜。在這種情況下，Blade 提供了 `Blade::if` 方法，它允許你使用閉包快速度定義條件指令。例如，定義一個校驗當前應用環境的自定義指令，可以在  `AppServiceProvider` 的 `boot` 方法中這樣做：
+在定義簡單的、自定義條件語句時，編寫自定義指令比必須的步驟覆雜。在這種情況下，Blade 提供了 `Blade::if` 方法，它允許你使用閉包快速度定義條件指令。例如，定義一個校驗當前應用環境的自定義指令，可以在  `AppServiceProvider` 的 `boot` 方法中這樣做：
 
     use Illuminate\Support\Facades\Blade;
 
     /**
-     * 執行注冊後引導服務
+     * 執行註冊後引導服務
      *
      * @return void
      */

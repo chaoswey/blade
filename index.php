@@ -14,11 +14,11 @@ $route = new Route($views, $error, $cache);
 
 if (DEBUG) {
     Debug::enable();
-    echo $route->views();
+    $route->views();
 } else {
     try {
-        echo $route->views();
+        $route->views();
     } catch (Exception $e) {
-        echo $route->error();
+        $route->error();
     }
 }
