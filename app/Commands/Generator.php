@@ -50,35 +50,35 @@ class Generator extends Command
             }
         }
 
-        $this->clearTargetDir($input, $output, $target);
+        $this->clearTargetDir($target);
 
         $this->copyPublicAllFiles($root, $target);
 
         $this->info("\nGenerator html for blade.");
 
-        $this->inputNewUrl($input, $output);
+        $this->replaceUrl();
 
         $this->generatorHtml($root, $target);
     }
 
-    private function clearTargetDir($input, $output, $target)
+    private function clearTargetDir($target)
     {
         $helper = $this->getHelper('question');
 
         $question = new ConfirmationQuestion('Clear Target Dir ? [yes,default: no] ', false);
 
-        if ($helper->ask($input, $output, $question)) {
+        if ($helper->ask($this->input, $this->output, $question)) {
             $this->filesystem->cleanDirectory($target);
         }
     }
 
-    private function inputNewUrl($input, $output)
+    private function replaceUrl()
     {
         $helper = $this->getHelper('question');
 
         $question = new Question('Enter new URL  [http://www.example.com]: ');
 
-        $base_url = $helper->ask($input, $output, $question);
+        $base_url = $helper->ask($this->input, $this->output, $question);
 
         Url::setInstance($base_url);
 
