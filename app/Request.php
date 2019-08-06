@@ -14,6 +14,6 @@ class Request
 
     public function is($pattern)
     {
-        return Str::is($pattern, $this->builder->getPathInfo());
+        return Str::is($pattern, ltrim($this->builder->getPathInfo(), '/'));
     }
 }
