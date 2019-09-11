@@ -71,6 +71,7 @@ class Route
 
     public function redirect($url)
     {
+        $url = $this->request->getSchemeAndHttpHost().$this->request->getBaseUrl().$url;
         (new RedirectResponse($url))->send();
         exit;
     }
