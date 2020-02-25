@@ -30,4 +30,5 @@ vendor/**/.multi-tester.yml
 vendor/**/Tester
 vendor/**/.github
 vendor/**README.md
+vendor/**/docs
 html/

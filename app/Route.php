@@ -97,31 +97,27 @@ class Route
      */
     public function views()
     {
-        try {
-            if ($this->ignore()) {
-                throw new \Exception("blade not exists.");
-            }
+        if ($this->ignore()) {
+            throw new \Exception("blade not exists.");
+        }
 
-            if ($this->export()) {
-                (new Export($this->views, $this->cache))->response()->send();
+        if ($this->export()) {
+            (new Export($this->views, $this->cache))->response()->send();
+            exit;
+        }
+
+        $blade = new Blade($this->views, $this->cache);
+        switch (true) {
+            case $blade->exists($this->path):
+                $response = new Response($blade->make($this->path)->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
+                $response->send();
                 exit;
-            }
-
-            $blade = new Blade($this->views, $this->cache);
-            switch (true) {
-                case $blade->exists($this->path):
-                    $response = new Response($blade->make($this->path)->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
-                    $response->send();
-                    exit;
-                    break;
-                case $blade->exists($this->path . '/index'):
-                    $this->redirect($this->path . '/');
-                    break;
-                default:
-                    throw new \Exception("blade not exists.");
-            }
-        } catch (\Exception $e) {
-            $this->error();
+                break;
+            case $blade->exists($this->path . '/index'):
+                $this->redirect($this->path . '/');
+                break;
+            default:
+                throw new \Exception("blade not exists.");
         }
     }
 
