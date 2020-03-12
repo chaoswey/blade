@@ -7,7 +7,7 @@ if (!function_exists('url')) {
      */
     function url($path = "/")
     {
-        return \App\Component\Url::getInstance()->get($path);
+        return \App\Component\Url::get($path);
     }
 }
 
@@ -18,7 +18,7 @@ if (!function_exists('asset')) {
      */
     function asset($content = null)
     {
-        return \App\Component\Url::getInstance()->asset($content);
+        return \App\Component\Url::asset($content);
     }
 }
 
@@ -30,6 +30,6 @@ if (!function_exists('url_is')) {
      */
     function url_is($url, $class = "active")
     {
-        return (new \App\Request())->is($url) ? $class : "";
+        return \App\Component\Request::is($url) ? $class : "";
     }
 }

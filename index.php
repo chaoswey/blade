@@ -1,24 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
-use Symfony\Component\Debug\Debug;
-use App\Route;
+use App\Application;
 
-const DEBUG = true;
-
-$views = __DIR__ . '/resources/views';
-$cache = __DIR__ . '/app/cache';
-$error = __DIR__ . '/app/error';
-
-$route = new Route($views, $error, $cache);
-
-if (DEBUG) {
-    Debug::enable();
-    $route->views();
-} else {
-    try {
-        $route->views();
-    } catch (Exception $e) {
-        $route->error();
-    }
-}
+$app = new Application();
+$app->response()->send();
