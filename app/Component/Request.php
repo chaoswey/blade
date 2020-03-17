@@ -2,6 +2,7 @@
 
 namespace App\Component;
 
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request as RequestBuilder;
 
 class Request
@@ -18,5 +19,10 @@ class Request
             self::$instance = new RequestBuilder($_GET, $_POST, [], $_COOKIE, $_FILES, $_SERVER);
         }
         return self::$instance;
+    }
+
+    public function is($pattern)
+    {
+        return Str::is($pattern, ltrim(self::$instance->getPathInfo(), '/'));
     }
 }

@@ -31,4 +31,13 @@ vendor/**/Tester
 vendor/**/.github
 vendor/**README.md
 vendor/**/docs
+vendor/**/LICENSE.txt
+vendor/**/Dockerfile
+vendor/**/CODE_OF_CONDUCT.md
+vendor/**/example
+vendor/nesbot/carbon/src/Carbon/Lang
+!vendor/nesbot/carbon/src/Carbon/Lang/en.php
+!vendor/nesbot/carbon/src/Carbon/Lang/zh.php
+!vendor/nesbot/carbon/src/Carbon/Lang/zh_Hant.php
+!vendor/nesbot/carbon/src/Carbon/Lang/zh_TW.php
 html/
