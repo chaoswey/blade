@@ -12,5 +12,6 @@ return [
         '_partials/*',
         '_components/*',
     ],
+    'components'  => '_components',
     'config_path' => '_setting',
 ];

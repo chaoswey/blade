@@ -6,4 +6,9 @@ class Guard
     {
         return !empty($_COOKIE['app']);
     }
+
+    public function guest()
+    {
+        return empty($_COOKIE['app']);
+    }
 }

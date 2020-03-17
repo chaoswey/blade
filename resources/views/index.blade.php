@@ -2,8 +2,12 @@
 @section('title', 'index')
 @section('content')
     @auth
-    hello
+        login
     @endauth
 
+    @guest
+        logout
+    @endguest
+    
     <x-alert type="error" message="msg"></x-alert>
 @endsection
