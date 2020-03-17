@@ -37,9 +37,27 @@ class AppSetting
         $this->cache = Arr::get($config, 'cache', null);
         $this->request = \App\Component\Request::getInstance();
 
-        if ($this->request->isMethod('post')) {
-            new GenerateHtml(Arr::get($config, 'path', null), $this->cache);
+        if ($this->request->isMethod('post') && method_exists($this, $this->request->get('type'))) {
+            $this->{$this->request->get('type')}($config);
         }
+    }
+
+    public function mocklogin($config)
+    {
+        if ($this->request->get("login", false) == "true") {
+            setcookie('app', true, time() + 3600);
+        } else {
+            unset($_COOKIE['app']);
+            setcookie('app', null, -1);
+        }
+
+        (new Response(json_encode(['status' => true]), Response::HTTP_OK, ['content-type' => 'application/json']))->send();
+        die(1);
+    }
+
+    protected function export($config)
+    {
+        new GenerateHtml(Arr::get($config, 'path', null), $this->cache);
     }
 
     public function response()

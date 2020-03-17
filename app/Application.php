@@ -1,9 +1,8 @@
 <?php namespace App;
 
+use App\Builders\Auth;
 use App\Builders\Route;
 use Illuminate\Container\Container;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
 use SlashTrace\EventHandler\DebugHandler;
 use SlashTrace\SlashTrace;
 
@@ -25,6 +24,7 @@ class Application
     {
         $this->registerTrace();
         $this->registerConfig();
+        $this->registerAuthenticator();
         $this->registerRoute();
     }
 
@@ -51,6 +51,14 @@ class Application
         $this->container->bindIf('route', function () {
             return new Route($this->container);
         }, true);
+    }
+
+    protected function registerAuthenticator()
+    {
+        $this->container->singleton(\Illuminate\Contracts\Auth\Factory::class, function ($app) {
+            $app['auth.loaded'] = true;
+            return new Auth($app);
+        });
     }
 
     public function response()

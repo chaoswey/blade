@@ -44,3 +44,31 @@ if (!function_exists('dd')) {
         exit(1);
     }
 }
+
+if (! function_exists('app')) {
+    function app($abstract = null, array $parameters = [])
+    {
+        if (is_null($abstract)) {
+            return Illuminate\Container\Container::getInstance();
+        }
+
+        return Illuminate\Container\Container::getInstance()->make($abstract, $parameters);
+    }
+}
+
+if (! function_exists('auth')) {
+    /**
+     * Get the available auth instance.
+     *
+     * @param  string|null  $guard
+     * @return \Illuminate\Contracts\Auth\Factory|\Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
+     */
+    function auth($guard = null)
+    {
+        if (is_null($guard)) {
+            return app(Illuminate\Contracts\Auth\Factory::class);
+        }
+
+        return app(Illuminate\Contracts\Auth\Factory::class)->guard($guard);
+    }
+}

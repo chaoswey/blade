@@ -12,8 +12,15 @@
     <a class="navbar-brand" href="javascript:;">Weya</a>
 </nav>
 <div class="container pt-4">
+    <h1>模擬登入</h1>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="mock_login" value="true" {{ !empty($_COOKIE['app']) ? 'checked': null }}> 開啟
+        </label>
+    </div>
     <h1>Blade 匯出 Html 介面</h1>
     <form method="post">
+        <input type="hidden" name="type" value="export">
         <div class="form-group">
             <label for="dir">匯出資料夾:</label>
             <input type="text" class="form-control" name="dir" id="dir" aria-describedby="dir-help" placeholder="D:\www\ 或者 /var/www/html">
@@ -31,12 +38,16 @@
         <button type="submit" class="btn btn-raised btn-primary">匯出</button>
     </form>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $('body').bootstrapMaterialDesign();
+
+        $('#mock_login').click(function () {
+            $.post(window.location.href, {'type': 'mocklogin', 'login': $(this).is(":checked")});
+        });
     });
 </script>
 </body>
