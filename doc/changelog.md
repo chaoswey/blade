@@ -13,6 +13,8 @@
     5. 移除 jenssegers/blade
     
     6. 修改元件核心, _components 底下都可以轉用 <x-xxx>使用
+    
+    7. 增加模擬登入頁面
 
 * 3.0.0
     
