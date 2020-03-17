@@ -1,5 +1,21 @@
 ## 更新說明 ##
 
+* 4.0.0
+    
+    1. 重構APP
+    
+    2. 加入 slashtrace/slashtrace 增加錯誤收集
+    
+    3. 設定統一在 app/config.php
+    
+    4. 匯出系統 改成 app setting 功能
+    
+    5. 移除 jenssegers/blade
+    
+    6. 修改元件核心, _components 底下都可以轉用 <x-xxx>使用
+    
+    7. 增加模擬登入頁面
+
 * 3.0.0
     
     1. 移除 CopyWebpackPlugin ImageminPlugin imageminMozjpeg

@@ -2,7 +2,7 @@
 
 namespace App\Component;
 
-use App\Url as UrlBuilder;
+use App\Builders\Url as UrlBuilder;
 
 class Url
 {
@@ -23,5 +23,15 @@ class Url
     public static function setInstance($base_url = null)
     {
         self::$instance = new UrlBuilder($base_url);
+    }
+
+    public static function asset($content = null)
+    {
+        return self::getInstance()->asset($content);
+    }
+
+    public static function get($path = "/")
+    {
+        return self::getInstance()->get($path);
     }
 }

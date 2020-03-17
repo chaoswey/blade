@@ -51,13 +51,13 @@ Apache 設定 `AllowOverride All`
 
 |介紹|網址|
 |:---:|:---|
-|laravel-mix webpack 操作說明|[laravel-mix](./framework/blade/src/master/doc/mix.md)|
-|blade 樣板引擎說明|[laravel-blade](./framework/blade/src/master/doc/blade.md)|
-|判斷網址|[request](./framework/blade/src/master/doc/request.md)|
+|laravel-mix webpack 操作說明|[laravel-mix](https://laravel.com/docs/7.x/mix)|
+|blade 樣板引擎說明|[laravel-blade](https://laravel.com/docs/7.x/blade)|
+|判斷網址|[request](# Request)|
 
 ## 更新說明 ##
 
-[更新說明](./framework/blade/src/master/doc/changelog.md)
+[更新說明](/framework/blade/src/branch/master/doc/changelog.md)
 
 ## clone 注意事項
 
@@ -99,7 +99,7 @@ Apache 設定 `AllowOverride All`
 
 |套件名稱|作用|網址|
 |:---:|:---:|:---|
-|jenssegers/blade|laravel blade|https://github.com/jenssegers/blade|
+|slashtrace/slashtrace|Awesome error handler|https://github.com/slashtrace/slashtrace|
 |symfony/console|console 套件|https://github.com/symfony/console|
 |symfony/http-foundation|http-foundation 套件|https://github.com/symfony/http-foundation|
 
@@ -166,3 +166,25 @@ blade 輸出成 html 現在有兩個方式 1. 網頁介面  2. 指令方式
     ```
     Enter new URL: http://www.demo.com.tw
     ```
+   
+# Request
+
+### url_is(url, Class Name)
+
+方法一 `url_is("project*", "active")` 只要網址開頭是 project 都會給于 `"active"`
+
+```
+<li><a href="{{ url("project/index") }}" class="{{ url_is("project*", "active") }}">index</a></li>
+```
+
+方法二 `url_is("project/*", "active")` 只有網址是 project/ 下面的檔案才會給于 `"active"`
+
+```
+<li><a href="{{ url("project/index") }}" class="{{ url_is("project*", "active") }}">index</a></li>
+```
+
+方法三 `url_is("project/contact", "active")` 只有網址是 project/contact 才會給于 `"active"`
+
+```
+<li><a href="{{ url("project/contact") }}" class="{{ url_is("project/contact", "active") }}">contact</a></li>
+```

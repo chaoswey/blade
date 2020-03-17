@@ -1,17 +1,17 @@
 <?php namespace App\Commands;
 
+use App\Builders\Blade;
 use App\Component\Url;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
-use Jenssegers\Blade\Blade;
 
 class Generator extends Command
 {
