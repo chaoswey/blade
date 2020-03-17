@@ -1,6 +1,7 @@
 <?php namespace App\View\Compilers;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\View\Compilers\ComponentTagCompiler as Compiler;
 use InvalidArgumentException;
 
@@ -12,7 +13,9 @@ class ComponentTagCompiler extends Compiler
             return $this->aliases[$component];
         }
 
-        if (Container::getInstance()->make('view')->exists($view = "_components.{$component}")) {
+        $config = Container::getInstance()->get('app_config');
+        $path = Arr::get($config, 'components');
+        if (Container::getInstance()->make('view')->exists($view = "{$path}.{$component}")) {
             return $view;
         }
 
