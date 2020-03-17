@@ -2,6 +2,8 @@
 
 use App\Builders\Route;
 use Illuminate\Container\Container;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Filesystem\Filesystem;
 use SlashTrace\EventHandler\DebugHandler;
 use SlashTrace\SlashTrace;
 
@@ -12,11 +14,9 @@ class Application
      */
     protected $container;
 
-    protected $route;
-
     public function __construct()
     {
-        $this->container = new Container;
+        $this->container = Container::getInstance();
 
         $this->registerBaseServiceProviders();
     }
@@ -25,7 +25,7 @@ class Application
     {
         $this->registerTrace();
         $this->registerConfig();
-        $this->route = new Route($this->container);
+        $this->registerRoute();
     }
 
     protected function registerTrace()
@@ -46,12 +46,23 @@ class Application
         }, true);
     }
 
+    protected function registerRoute()
+    {
+        $this->container->bindIf('route', function () {
+            return new Route($this->container);
+        }, true);
+    }
+
     public function response()
     {
         try {
-            return $this->route->response();
+            return $this->container['route']->response();
         } catch (\Exception $exception) {
-            $this->container['trace']->handleException($exception);
+            if ($this->container['app_config']['debug']) {
+                $this->container['trace']->handleException($exception);
+            }
+
+            return $this->container['route']->error();
         }
     }
 }

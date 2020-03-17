@@ -99,7 +99,7 @@ Apache 設定 `AllowOverride All`
 
 |套件名稱|作用|網址|
 |:---:|:---:|:---|
-|jenssegers/blade|laravel blade|https://github.com/jenssegers/blade|
+|slashtrace/slashtrace|Awesome error handler|https://github.com/slashtrace/slashtrace|
 |symfony/console|console 套件|https://github.com/symfony/console|
 |symfony/http-foundation|http-foundation 套件|https://github.com/symfony/http-foundation|
 

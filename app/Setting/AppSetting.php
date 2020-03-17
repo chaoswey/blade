@@ -32,7 +32,7 @@ class AppSetting
 
     public function __construct(ContainerInterface $container = null)
     {
-        $this->container = $container ?: new Container;
+        $this->container = $container ?: Container::getInstance();
         $config = $this->container['app_config']['views'];
         $this->cache = Arr::get($config, 'cache', null);
         $this->request = \App\Component\Request::getInstance();
