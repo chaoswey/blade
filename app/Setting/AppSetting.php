@@ -6,6 +6,7 @@ use App\Builders\Blade;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\Container as ContainerInterface;
 use Illuminate\Support\Arr;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class AppSetting
@@ -58,6 +59,8 @@ class AppSetting
     protected function export($config)
     {
         new GenerateHtml(Arr::get($config, 'path', null), $this->cache);
+        (new RedirectResponse($this->container['config_path'] . '?status=success'))->send();
+        exit;
     }
 
     public function response()

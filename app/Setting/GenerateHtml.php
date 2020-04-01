@@ -2,10 +2,10 @@
 
 namespace App\Setting;
 
+use App\Builders\Blade;
+use Illuminate\Container\Container;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
-use App\Builders\Blade;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class GenerateHtml
 {
@@ -31,13 +31,6 @@ class GenerateHtml
         $this->root = dirname(dirname(__DIR__));
 
         $this->builder($views, $cache);
-        $this->redirect();
-    }
-
-    public function redirect()
-    {
-        (new RedirectResponse('_export?status=success'))->send();
-        exit;
     }
 
     protected function builder($views, $cache)
@@ -86,7 +79,7 @@ class GenerateHtml
     {
         $views = $this->getPath($views);
         $cache = $this->getPath($cache);
-        $blade = new Blade($views, $cache);
+        $blade = new Blade($views, $cache, Container::getInstance());
 
         $files = $this->filesystem->allFiles($views);
         $files = $this->ignore($root, $views, $files);
