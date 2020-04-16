@@ -5,6 +5,7 @@ use App\Builders\Route;
 use Illuminate\Container\Container;
 use SlashTrace\EventHandler\DebugHandler;
 use SlashTrace\SlashTrace;
+use function set_error_handler;
 
 class Application
 {
@@ -23,9 +24,17 @@ class Application
     protected function registerBaseServiceProviders()
     {
         $this->registerTrace();
+        $this->handler();
         $this->registerConfig();
         $this->registerAuthenticator();
         $this->registerRoute();
+    }
+
+    protected function handler()
+    {
+        set_error_handler(function ($errno, $errstr, $errfile, $errline, $errcontext) {
+            throw new \Exception($errstr, $errno);
+        });
     }
 
     protected function registerTrace()

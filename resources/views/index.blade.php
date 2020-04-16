@@ -5,6 +5,7 @@
         login
     @endauth
 
+    {{ $a }}
     @guest
         logout
     @endguest
