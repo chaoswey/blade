@@ -41,3 +41,4 @@ vendor/nesbot/carbon/src/Carbon/Lang
 !vendor/nesbot/carbon/src/Carbon/Lang/zh_Hant.php
 !vendor/nesbot/carbon/src/Carbon/Lang/zh_TW.php
 html/
+npm-debug.log
