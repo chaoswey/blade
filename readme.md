@@ -188,3 +188,18 @@ blade 輸出成 html 現在有兩個方式 1. 網頁介面  2. 指令方式
 ```
 <li><a href="{{ url("project/contact") }}" class="{{ url_is("project/contact", "active") }}">contact</a></li>
 ```
+
+### asset
+
+asset 使用外部資源
+
+如果 `webpack.mix.js` 有加入
+
+```javascript
+if (mix.inProduction()) {
+    mix.setPublicPath(path.resolve('./'));
+    mix.version();
+}
+```
+
+會自動 找尋 `mix-manifest.json` 內容更新版本號碼
