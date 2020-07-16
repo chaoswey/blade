@@ -21,7 +21,7 @@ class Request
         return self::$instance;
     }
 
-    public function is($pattern)
+    public  function is($pattern)
     {
         return Str::is($pattern, ltrim(self::$instance->getPathInfo(), '/'));
     }
