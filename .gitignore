@@ -2,7 +2,6 @@
 Thumbs.db
 .DS_Store
 node_modules/
-mix-manifest.json
 hot
 mix.js.map
 vendor/**/LICENSE
@@ -40,5 +39,4 @@ vendor/nesbot/carbon/src/Carbon/Lang
 !vendor/nesbot/carbon/src/Carbon/Lang/zh.php
 !vendor/nesbot/carbon/src/Carbon/Lang/zh_Hant.php
 !vendor/nesbot/carbon/src/Carbon/Lang/zh_TW.php
-html/
 npm-debug.log

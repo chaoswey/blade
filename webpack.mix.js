@@ -26,6 +26,11 @@ if (!mix.inProduction()) {
     mix.webpackConfig({devtool: 'source-map'}).sourceMaps()
 }
 
+if (mix.inProduction()) {
+    mix.setPublicPath(path.resolve('./'));
+    mix.version();
+}
+
 /*
  |--------------------------------------------------------------------------
  | 同步瀏覽器

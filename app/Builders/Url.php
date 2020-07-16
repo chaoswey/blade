@@ -1,5 +1,7 @@
 <?php namespace App\Builders;
 
+use Illuminate\Filesystem\Filesystem;
+
 class Url
 {
     protected $public_url;
@@ -29,6 +31,20 @@ class Url
      */
     public function asset($content = null)
     {
+        $filesystem = new Filesystem();
+        $target = $this->getPath(dirname(dirname(__DIR__)) . "/mix-manifest.json");
+        if ($filesystem->exists($target)) {
+            $manifest = json_decode($filesystem->get($target));
+            $ver = "/public/" . trim(trim($content), "/");
+            if (!empty($manifest) && !empty($manifest->{$ver})) {
+                return $this->base_url . $manifest->{$ver};
+            }
+        }
         return $this->public_url . trim(trim($content), '/');
+    }
+
+    private function getPath($path)
+    {
+        return windows_os() ? str_replace('/', '\\', $path) : $path;
     }
 }
