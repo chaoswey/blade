@@ -1,5 +1,20 @@
 ## 更新說明 ##
 
+* 4.2.0
+
+    asset 使用外部資源
+    
+    如果 `webpack.mix.js` 有加入
+    
+    ```javascript
+    if (mix.inProduction()) {
+        mix.setPublicPath(path.resolve('./'));
+        mix.version();
+    }
+    ```
+    
+    會自動 找尋 `mix-manifest.json` 內容更新版本號碼
+
 * 4.0.0
     
     1. 重構APP
