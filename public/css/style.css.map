@@ -1,1 +1,1 @@
-{"version":3,"sources":["webpack:///./resources/sass/D:/www/blade/resources/sass/D:/www/blade/resources/sass/style.scss"],"names":[],"mappings":"AAAA;EACE","file":"public/css/style.css","sourcesContent":["body {\r\n  padding: 0;\r\n}"],"sourceRoot":""}
+{"version":3,"sources":["webpack:///./resources/sass/style.scss"],"names":[],"mappings":"AAAA;EACE;AACF,C","file":"public/css/style.css","sourcesContent":["body {\r\n  padding: 0;\r\n}"],"sourceRoot":""}

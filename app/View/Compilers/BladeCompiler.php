@@ -10,7 +10,7 @@ class BladeCompiler extends Compiler
      * @param string $value
      * @return string
      */
-    protected function compileComponentTags($value)
+    protected function compileComponentTags($value): string
     {
         if (!$this->compilesComponentTags) {
             return $value;

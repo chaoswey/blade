@@ -3,8 +3,6 @@
 use App\Builders\Auth;
 use App\Builders\Route;
 use Illuminate\Container\Container;
-use SlashTrace\EventHandler\DebugHandler;
-use SlashTrace\SlashTrace;
 use function set_error_handler;
 
 class Application
@@ -21,9 +19,9 @@ class Application
         $this->registerBaseServiceProviders();
     }
 
-    protected function registerBaseServiceProviders()
+    protected function registerBaseServiceProviders(): void
     {
-        $this->registerTrace();
+        $this->registerWhoops();
         $this->handler();
         $this->registerConfig();
         $this->registerAuthenticator();
@@ -32,37 +30,37 @@ class Application
 
     protected function handler()
     {
-        set_error_handler(function ($errno, $errstr, $errfile, $errline, $errcontext) {
+        set_error_handler(static function ($errno, $errstr, $errfile, $errline, $errcontext) {
             throw new \Exception($errstr, $errno);
         });
     }
 
-    protected function registerTrace()
+    protected function registerWhoops(): void
     {
-        $this->container->singleton('trace', function () {
-            $slashtrace = new SlashTrace();
-            $slashtrace->addHandler(new DebugHandler());
-            $slashtrace->register();
+        $this->container->singleton('whoops', function () {
+            $whoops = new \Whoops\Run;
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+            $whoops->register();
 
-            return $slashtrace;
+            return $whoops;
         });
     }
 
-    protected function registerConfig()
+    protected function registerConfig(): void
     {
         $this->container->bindIf('app_config', function () {
-            return require dirname(__DIR__) . '/app/config.php';
+            return require dirname(__DIR__).'/app/config.php';
         }, true);
     }
 
-    protected function registerRoute()
+    protected function registerRoute(): void
     {
         $this->container->bindIf('route', function () {
             return new Route($this->container);
         }, true);
     }
 
-    protected function registerAuthenticator()
+    protected function registerAuthenticator(): void
     {
         $this->container->singleton(\Illuminate\Contracts\Auth\Factory::class, function ($app) {
             $app['auth.loaded'] = true;
@@ -76,7 +74,7 @@ class Application
             return $this->container['route']->response();
         } catch (\Exception $exception) {
             if ($this->container['app_config']['debug']) {
-                $this->container['trace']->handleException($exception);
+                $this->container['whoops']->handleException($exception);
             }
 
             return $this->container['route']->error();

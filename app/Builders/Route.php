@@ -53,9 +53,9 @@ class Route
         $this->config = $this->container['app_config'];
         $this->path = $this->builder($this->request->getPathInfo());
 
-        $this->views = Arr::get($this->config['views'], 'path', null);
-        $this->error = Arr::get($this->config['views'], 'error', null);
-        $this->cache = Arr::get($this->config['views'], 'cache', null);
+        $this->views = Arr::get($this->config['views'], 'path');
+        $this->error = Arr::get($this->config['views'], 'error');
+        $this->cache = Arr::get($this->config['views'], 'cache');
     }
 
     /**
@@ -63,6 +63,7 @@ class Route
      */
     private function ignore()
     {
+        //TODO 跳脫
         $ignores = $this->config['ignore'];
         $path = ltrim($this->path, '/');
 

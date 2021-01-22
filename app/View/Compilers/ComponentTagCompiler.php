@@ -7,16 +7,19 @@ use InvalidArgumentException;
 
 class ComponentTagCompiler extends Compiler
 {
-    protected function componentClass(string $component)
+    public function componentClass(string $component): ?string
     {
         if (isset($this->aliases[$component])) {
             return $this->aliases[$component];
         }
 
         $config = Container::getInstance()->get('app_config');
-        $path = Arr::get($config, 'components');
-        if (Container::getInstance()->make('view')->exists($view = "{$path}.{$component}")) {
-            return $view;
+        $paths = Arr::get($config, 'components');
+
+        foreach($paths as $path){
+            if (Container::getInstance()->make('view')->exists($view = "{$path}.{$component}")) {
+                return $view;
+            }
         }
 
         throw new InvalidArgumentException(
@@ -24,7 +27,7 @@ class ComponentTagCompiler extends Compiler
         );
     }
 
-    public function compileTags(string $value)
+    public function compileTags(string $value): string
     {
         $value = $this->compileSelfClosingTags($value);
         $value = $this->compileOpeningTags($value);

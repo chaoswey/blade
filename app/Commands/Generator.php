@@ -21,8 +21,7 @@ class Generator extends Command
      * @var Filesystem
      **/
     private $filesystem;
-
-
+    
     protected function configure()
     {
         $this->setName('b2html')
@@ -38,7 +37,7 @@ class Generator extends Command
         $this->input = $input;
         $this->filesystem = $filesystem;
 
-        $root = dirname(dirname(__DIR__));
+        $root = dirname(__DIR__, 2);
 
         $target = $this->getTargetPath($root);
         $this->info("target dir :" . $target);
@@ -113,6 +112,7 @@ class Generator extends Command
 
     private function ignore($root, $views, $files)
     {
+        //TODO 跳脫
         $allfiles = [];
         $config = require $root . '/app/config.php';
         $ignores = $config['ignore'];

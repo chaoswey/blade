@@ -35,7 +35,7 @@ class AppSetting
     {
         $this->container = $container ?: Container::getInstance();
         $config = $this->container['app_config']['views'];
-        $this->cache = Arr::get($config, 'cache', null);
+        $this->cache = Arr::get($config, 'cache');
         $this->request = \App\Component\Request::getInstance();
 
         if ($this->request->isMethod('post') && method_exists($this, $this->request->get('type'))) {
@@ -58,14 +58,14 @@ class AppSetting
 
     protected function export($config)
     {
-        new GenerateHtml(Arr::get($config, 'path', null), $this->cache);
-        (new RedirectResponse($this->container['config_path'] . '?status=success'))->send();
+        new GenerateHtml(Arr::get($config, 'path'), $this->cache);
+        (new RedirectResponse($this->container['config_path'].'?status=success'))->send();
         exit;
     }
 
     public function response()
     {
-        $blade = new Blade(__DIR__ . '/views', $this->cache, $this->container);
+        $blade = new Blade(dirname(__DIR__, 2).'/storage/setting', $this->cache, $this->container);
         return new Response($blade->make('index')->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Factory;
-use App\Providers\ViewServiceProvider;
+use App\View\ViewServiceProvider;
 
 class Blade implements FactoryContract
 {

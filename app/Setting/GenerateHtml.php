@@ -28,7 +28,7 @@ class GenerateHtml
     {
         $this->request = \App\Component\Request::getInstance();
         $this->filesystem = new Filesystem();
-        $this->root = dirname(dirname(__DIR__));
+        $this->root = dirname(__DIR__, 2);
 
         $this->builder($views, $cache);
     }
@@ -58,6 +58,7 @@ class GenerateHtml
 
     private function ignore($root, $views, $files)
     {
+        //TODO 跳脫
         $allfiles = [];
         $config = require $root . '/app/config.php';
         $ignores = $config['ignore'];
