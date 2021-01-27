@@ -22,17 +22,17 @@
 
 如果 Apache 沒有設定 .htaccess
 
-> 沒有使用 `php -S localhost:8088`
+> 沒有使用 `npm run serve`
 
 >> 網址將會是 **http://localhost/index.php/you dir/xxx**, **http://localhost/index.php/you dir/blog/xxx**
 
-> 有使用 `php -S localhost:8088`
+> 有使用 `npm run serve`
 
 >> 或者 **http://localhost:8088/index.php/xxx**, **http://localhost/index.php/blog/xxx**
 
 ## 建議使用方式
 
-使用 `php -S localhost:8088`
+使用 `npm run serve`
 
 ## 建議設定
 
@@ -51,13 +51,12 @@ Apache 設定 `AllowOverride All`
 
 |介紹|網址|
 |:---:|:---|
-|laravel-mix webpack 操作說明|[laravel-mix](https://laravel.com/docs/7.x/mix)|
-|blade 樣板引擎說明|[laravel-blade](https://laravel.com/docs/7.x/blade)|
-|判斷網址|[request](# Request)|
+|laravel-mix webpack 操作說明|[laravel-mix](https://laravel.com/docs/8.x/mix)|
+|blade 樣板引擎說明|[laravel-blade](https://laravel.com/docs/8.x/blade)|
 
 ## 更新說明 ##
 
-[更新說明](/framework/blade/src/branch/master/doc/changelog.md)
+[更新說明](doc/changelog.md)
 
 ## clone 注意事項
 

@@ -3,6 +3,7 @@
 namespace App\Setting;
 
 use App\Builders\Blade;
+use App\Builders\Path;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\Container as ContainerInterface;
 use Illuminate\Support\Arr;
@@ -34,9 +35,9 @@ class AppSetting
     public function __construct(ContainerInterface $container = null)
     {
         $this->container = $container ?: Container::getInstance();
-        $config = $this->container['app_config']['views'];
-        $this->cache = Arr::get($config, 'cache');
         $this->request = \App\Component\Request::getInstance();
+        $config = Arr::get($this->container['app_config'], 'views');
+        $this->cache = Arr::get($config, 'cache');
 
         if ($this->request->isMethod('post') && method_exists($this, $this->request->get('type'))) {
             $this->{$this->request->get('type')}($config);
@@ -58,14 +59,15 @@ class AppSetting
 
     protected function export($config)
     {
-        new GenerateHtml(Arr::get($config, 'path'), $this->cache);
-        (new RedirectResponse($this->container['config_path'].'?status=success'))->send();
+        new GenerateHtml(Arr::get($config, 'path'), $this->cache, $this->request, $this->container);
+        (new RedirectResponse('_setting?status=success'))->send();
         exit;
     }
 
     public function response()
     {
-        $blade = new Blade(dirname(__DIR__, 2).'/storage/setting', $this->cache, $this->container);
+        $path = Path::os(dirname(__DIR__, 2).'/storage/setting');
+        $blade = new Blade($path, $this->cache, $this->container);
         return new Response($blade->make('index')->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
     }
 }

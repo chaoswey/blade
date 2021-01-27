@@ -1,7 +1,6 @@
 <?php namespace App\Builders;
 
 use App\Component\Request;
-use App\Setting\AppSetting;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\Container as ContainerInterface;
 use Illuminate\Support\Arr;
@@ -63,8 +62,7 @@ class Route
      */
     private function ignore()
     {
-        //TODO 跳脫
-        $ignores = $this->config['ignore'];
+        $ignores = array_merge($this->config['ignore'], [$this->config['guess']], $this->config['components']);
         $path = ltrim($this->path, '/');
 
         return Arr::first($ignores, function ($ignore) use ($path) {
@@ -75,16 +73,22 @@ class Route
     /**
      * @return bool
      */
-    private function export()
+    private function isRoute(): bool
     {
         $path = ltrim($this->path, '/');
-        return $path == $this->config['config_path'];
+        return array_key_exists($path, $this->config['route']);
+    }
+
+    private function getRoute()
+    {
+        $path = ltrim($this->path, '/');
+        return $this->config['route'][$path];
     }
 
     /**
      * 路徑整理
      *
-     * @param string $path
+     * @param  string  $path
      * @return string
      */
     protected function builder($path)
@@ -105,7 +109,7 @@ class Route
      */
     public function redirect($url)
     {
-        $url = $this->request->getSchemeAndHttpHost() . $this->request->getBaseUrl() . $url;
+        $url = $this->request->getSchemeAndHttpHost().$this->request->getBaseUrl().$url;
         return new RedirectResponse($url);
     }
 
@@ -121,8 +125,9 @@ class Route
             $this->notExists();
         }
 
-        if ($this->export()) {
-            return (new AppSetting($this->container))->response();
+        if ($this->isRoute()) {
+            $class = $this->getRoute();
+            return (new $class($this->container))->response();
         }
 
         $blade = new Blade($this->views, $this->cache, $this->container);
@@ -131,8 +136,8 @@ class Route
             return new Response($blade->make($this->path)->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
         }
 
-        if ($blade->exists($this->path . '/index')) {
-            return $this->redirect($this->path . '/');
+        if ($blade->exists($this->path.'/index')) {
+            return $this->redirect($this->path.'/');
         }
 
         $this->notExists();

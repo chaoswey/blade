@@ -4,11 +4,8 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\Container as ContainerInterface;
 use Illuminate\Contracts\View\Factory as FactoryContract;
 use Illuminate\Contracts\View\View;
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Factory;
-use App\View\ViewServiceProvider;
 
 class Blade implements FactoryContract
 {
@@ -30,9 +27,7 @@ class Blade implements FactoryContract
     public function __construct($viewPaths, string $cachePath, ContainerInterface $container = null)
     {
         $this->container = $container ?: new Container;
-
         $this->setupContainer((array)$viewPaths, $cachePath);
-        (new ViewServiceProvider($this->container))->register();
 
         $this->factory = $this->container->get('view');
         $this->compiler = $this->container->get('blade.compiler');
@@ -104,19 +99,8 @@ class Blade implements FactoryContract
 
     protected function setupContainer(array $viewPaths, string $cachePath)
     {
-        $this->container->bindIf('files', function () {
-            return new Filesystem;
-        }, true);
-
-        $this->container->bindIf('events', function () {
-            return new Dispatcher;
-        }, true);
-
         $this->container->bindIf('config', function () use ($viewPaths, $cachePath) {
-            return [
-                'view.paths'    => $viewPaths,
-                'view.compiled' => $cachePath,
-            ];
+            return ['view.paths' => \App\Builders\Path::os($viewPaths), 'view.compiled' => \App\Builders\Path::os($cachePath)];
         }, true);
     }
 }
