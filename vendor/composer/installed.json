@@ -162,9 +162,82 @@
         ]
     },
     {
+        "name": "guzzlehttp/psr7",
+        "version": "1.7.0",
+        "version_normalized": "1.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guzzle/psr7.git",
+            "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/guzzle/psr7/zipball/53330f47520498c0ae1f61f7e2c90f55690c06a3",
+            "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "psr/http-message": "~1.0",
+            "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
+        },
+        "provide": {
+            "psr/http-message-implementation": "1.0"
+        },
+        "require-dev": {
+            "ext-zlib": "*",
+            "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.10"
+        },
+        "suggest": {
+            "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
+        },
+        "time": "2020-09-30T07:37:11+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.7-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "GuzzleHttp\\Psr7\\": "src/"
+            },
+            "files": [
+                "src/functions_include.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Michael Dowling",
+                "email": "mtdowling@gmail.com",
+                "homepage": "https://github.com/mtdowling"
+            },
+            {
+                "name": "Tobias Schultze",
+                "homepage": "https://github.com/Tobion"
+            }
+        ],
+        "description": "PSR-7 message implementation that also provides common utility methods",
+        "keywords": [
+            "http",
+            "message",
+            "psr-7",
+            "request",
+            "response",
+            "stream",
+            "uri",
+            "url"
+        ]
+    },
+    {
         "name": "illuminate/bus",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/bus.git",
@@ -214,8 +287,8 @@
     },
     {
         "name": "illuminate/collections",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/collections.git",
@@ -266,8 +339,8 @@
     },
     {
         "name": "illuminate/container",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/container.git",
@@ -315,8 +388,8 @@
     },
     {
         "name": "illuminate/contracts",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/contracts.git",
@@ -361,17 +434,17 @@
     },
     {
         "name": "illuminate/events",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/events.git",
-            "reference": "16ba68c0b3964da8b25ff202201276d860fb587a"
+            "reference": "eda1c857153949da15abc9df7608df2cb5d9bcdb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/events/zipball/16ba68c0b3964da8b25ff202201276d860fb587a",
-            "reference": "16ba68c0b3964da8b25ff202201276d860fb587a",
+            "url": "https://api.github.com/repos/illuminate/events/zipball/eda1c857153949da15abc9df7608df2cb5d9bcdb",
+            "reference": "eda1c857153949da15abc9df7608df2cb5d9bcdb",
             "shasum": ""
         },
         "require": {
@@ -383,7 +456,7 @@
             "illuminate/support": "^8.0",
             "php": "^7.3|^8.0"
         },
-        "time": "2020-12-09T18:07:50+00:00",
+        "time": "2021-01-25T16:24:03+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -414,8 +487,8 @@
     },
     {
         "name": "illuminate/filesystem",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/filesystem.git",
@@ -474,8 +547,8 @@
     },
     {
         "name": "illuminate/macroable",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/macroable.git",
@@ -497,7 +570,7 @@
                 "dev-master": "8.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Illuminate\\Support\\": ""
@@ -518,8 +591,8 @@
     },
     {
         "name": "illuminate/pipeline",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/pipeline.git",
@@ -564,17 +637,17 @@
     },
     {
         "name": "illuminate/support",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/support.git",
-            "reference": "b5f12bc62bfca920d0b3379da7a7d282999343af"
+            "reference": "930ae59aea86acd6abba2ab9c84bcfe41b1b7eec"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/support/zipball/b5f12bc62bfca920d0b3379da7a7d282999343af",
-            "reference": "b5f12bc62bfca920d0b3379da7a7d282999343af",
+            "url": "https://api.github.com/repos/illuminate/support/zipball/930ae59aea86acd6abba2ab9c84bcfe41b1b7eec",
+            "reference": "930ae59aea86acd6abba2ab9c84bcfe41b1b7eec",
             "shasum": ""
         },
         "require": {
@@ -598,7 +671,7 @@
             "symfony/var-dumper": "Required to use the dd function (^5.1.4).",
             "vlucas/phpdotenv": "Required to use the Env class and env helper (^5.2)."
         },
-        "time": "2021-01-15T21:56:08+00:00",
+        "time": "2021-01-25T20:54:50+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -629,8 +702,8 @@
     },
     {
         "name": "illuminate/view",
-        "version": "v8.24.0",
-        "version_normalized": "8.24.0.0",
+        "version": "v8.25.0",
+        "version_normalized": "8.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/illuminate/view.git",
@@ -678,6 +751,78 @@
         ],
         "description": "The Illuminate View package.",
         "homepage": "https://laravel.com"
+    },
+    {
+        "name": "intervention/image",
+        "version": "2.5.1",
+        "version_normalized": "2.5.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Intervention/image.git",
+            "reference": "abbf18d5ab8367f96b3205ca3c89fb2fa598c69e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Intervention/image/zipball/abbf18d5ab8367f96b3205ca3c89fb2fa598c69e",
+            "reference": "abbf18d5ab8367f96b3205ca3c89fb2fa598c69e",
+            "shasum": ""
+        },
+        "require": {
+            "ext-fileinfo": "*",
+            "guzzlehttp/psr7": "~1.1",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.2",
+            "phpunit/phpunit": "^4.8 || ^5.7"
+        },
+        "suggest": {
+            "ext-gd": "to use GD library based image processing.",
+            "ext-imagick": "to use Imagick based image processing.",
+            "intervention/imagecache": "Caching extension for the Intervention Image library"
+        },
+        "time": "2019-11-02T09:15:47+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.4-dev"
+            },
+            "laravel": {
+                "providers": [
+                    "Intervention\\Image\\ImageServiceProvider"
+                ],
+                "aliases": {
+                    "Image": "Intervention\\Image\\Facades\\Image"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Intervention\\Image\\": "src/Intervention/Image"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oliver Vogel",
+                "email": "oliver@olivervogel.com",
+                "homepage": "http://olivervogel.com/"
+            }
+        ],
+        "description": "Image handling and manipulation library with support for Laravel integration",
+        "homepage": "http://image.intervention.io/",
+        "keywords": [
+            "gd",
+            "image",
+            "imagick",
+            "laravel",
+            "thumbnail",
+            "watermark"
+        ]
     },
     {
         "name": "nesbot/carbon",
@@ -822,6 +967,58 @@
         ]
     },
     {
+        "name": "psr/http-message",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/http-message.git",
+            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
+            "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2016-08-06T14:39:51+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Http\\Message\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for HTTP messages",
+        "homepage": "https://github.com/php-fig/http-message",
+        "keywords": [
+            "http",
+            "http-message",
+            "psr",
+            "psr-7",
+            "request",
+            "response"
+        ]
+    },
+    {
         "name": "psr/log",
         "version": "1.1.3",
         "version_normalized": "1.1.3.0",
@@ -919,6 +1116,48 @@
             "psr-16",
             "simple-cache"
         ]
+    },
+    {
+        "name": "ralouphie/getallheaders",
+        "version": "3.0.3",
+        "version_normalized": "3.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ralouphie/getallheaders.git",
+            "reference": "120b605dfeb996808c31b6477290a714d356e822"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/120b605dfeb996808c31b6477290a714d356e822",
+            "reference": "120b605dfeb996808c31b6477290a714d356e822",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "require-dev": {
+            "php-coveralls/php-coveralls": "^2.1",
+            "phpunit/phpunit": "^5 || ^6.5"
+        },
+        "time": "2019-03-08T08:55:37+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/getallheaders.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ralph Khattar",
+                "email": "ralph.khattar@gmail.com"
+            }
+        ],
+        "description": "A polyfill for getallheaders."
     },
     {
         "name": "symfony/deprecation-contracts",

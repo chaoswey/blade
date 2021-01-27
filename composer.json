@@ -9,6 +9,7 @@
     "ext-json": "*",
     "filp/whoops": "^2.9",
     "illuminate/view": "^8.0",
+    "intervention/image": "^2.5",
     "symfony/http-foundation": "^4.4",
     "symfony/var-dumper": "^5.2"
   },
