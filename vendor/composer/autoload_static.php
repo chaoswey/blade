@@ -213,6 +213,7 @@ class ComposerStaticInit2bc9b9e11cfd6c6e9c012aa35251fc76
         'App\\Builders\\Auth' => __DIR__ . '/../..' . '/app/Builders/Auth.php',
         'App\\Builders\\Blade' => __DIR__ . '/../..' . '/app/Builders/Blade.php',
         'App\\Builders\\Guard' => __DIR__ . '/../..' . '/app/Builders/Guard.php',
+        'App\\Builders\\Image' => __DIR__ . '/../..' . '/app/Builders/Image.php',
         'App\\Builders\\Path' => __DIR__ . '/../..' . '/app/Builders/Path.php',
         'App\\Builders\\Route' => __DIR__ . '/../..' . '/app/Builders/Route.php',
         'App\\Builders\\Url' => __DIR__ . '/../..' . '/app/Builders/Url.php',

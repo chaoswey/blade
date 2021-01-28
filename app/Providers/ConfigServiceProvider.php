@@ -8,7 +8,7 @@ class ConfigServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('app_config', function () {
-            return require Path::app_path('config.php');
+            return require windows_os() ? Path::app_path('config.php') : '/'.Path::app_path('config.php');
         });
     }
 }

@@ -27,7 +27,7 @@ if (!mix.inProduction()) {
 }
 
 if (mix.inProduction()) {
-    mix.setPublicPath(path.resolve('./'));
+    mix.setPublicPath('./');
     mix.version();
 }
 

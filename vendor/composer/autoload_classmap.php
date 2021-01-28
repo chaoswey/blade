@@ -10,6 +10,7 @@ return array(
     'App\\Builders\\Auth' => $baseDir . '/app/Builders/Auth.php',
     'App\\Builders\\Blade' => $baseDir . '/app/Builders/Blade.php',
     'App\\Builders\\Guard' => $baseDir . '/app/Builders/Guard.php',
+    'App\\Builders\\Image' => $baseDir . '/app/Builders/Image.php',
     'App\\Builders\\Path' => $baseDir . '/app/Builders/Path.php',
     'App\\Builders\\Route' => $baseDir . '/app/Builders/Route.php',
     'App\\Builders\\Url' => $baseDir . '/app/Builders/Url.php',
