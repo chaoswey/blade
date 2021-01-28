@@ -1,5 +1,7 @@
 <?php namespace App\Builders;
 
+use Illuminate\Support\Str;
+
 class Path
 {
     public static $root;
@@ -7,13 +9,13 @@ class Path
     public function __construct()
     {
         if (empty(static::$root)) {
-            static::$root = dirname(__DIR__, 2);
+            static::$root = Str::start(Str::finish(dirname(__DIR__, 2), '/'), '/');
         }
     }
 
     public static function os($path)
     {
-        return windows_os() ? str_replace('/', '\\', $path) : $path;
+        return windows_os() ? Str::of($path)->replace('/', '\\') : $path;
     }
 
     public static function root_path(?string $path = null): ?string
@@ -22,22 +24,22 @@ class Path
             new static();
         }
 
-        $path = trim(static::$root, '/').'/'.trim($path, '/');
-        return static::os(trim($path, '/'));
+        $path = Str::finish(static::$root, '/').Str::of($path)->trim('/');
+        return static::os($path);
     }
 
     public static function public_path(?string $path = null): ?string
     {
-        return static::root_path('public/'.trim($path, '/'));
+        return static::root_path('public/'.Str::of($path)->trim('/'));
     }
 
     public static function storage_path(?string $path = null): ?string
     {
-        return static::root_path('storage/'.trim($path, '/'));
+        return static::root_path('storage/'.Str::of($path)->trim('/'));
     }
 
     public static function app_path(?string $path = null): ?string
     {
-        return static::root_path('app/'.trim($path, '/'));
+        return static::root_path('app/'.Str::of($path)->trim('/'));
     }
 }
