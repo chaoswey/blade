@@ -88,6 +88,6 @@ if (!function_exists('imageHelper')) {
     function imageHelper(string $path = null, string $format = null, ?int $width = null, ?int $height = null): ?string
     {
         $target = new \App\Builders\Image($path, $format, $width, $height);
-        return !empty($target) ? asset($target): null;
+        return $target != '' ? asset($target): null;
     }
 }
