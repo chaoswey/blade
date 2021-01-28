@@ -3,7 +3,6 @@ Thumbs.db
 .DS_Store
 node_modules/
 hot
-mix.js.map
 vendor/**/LICENSE
 vendor/**/CHANGELOG.md
 vendor/**/phpunit.xml.dist
@@ -34,9 +33,13 @@ vendor/**/LICENSE.txt
 vendor/**/Dockerfile
 vendor/**/CODE_OF_CONDUCT.md
 vendor/**/example
+vendor/**/phpstan.neon.dist
+vendor/**/extension.neon
 vendor/nesbot/carbon/src/Carbon/Lang
 !vendor/nesbot/carbon/src/Carbon/Lang/en.php
 !vendor/nesbot/carbon/src/Carbon/Lang/zh.php
 !vendor/nesbot/carbon/src/Carbon/Lang/zh_Hant.php
 !vendor/nesbot/carbon/src/Carbon/Lang/zh_TW.php
 npm-debug.log
+yarn-error.log
+html
