@@ -4,7 +4,7 @@ use Intervention\Image\ImageManager;
 
 class Image
 {
-    protected static ImageManager $instance;
+    protected static $instance;
 
     protected $target = '';
 
