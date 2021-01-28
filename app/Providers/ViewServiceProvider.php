@@ -1,13 +1,13 @@
-<?php
+<?php namespace App\Providers;
 
-namespace App\Providers;
-
-use App\View\Compilers\BladeCompiler;
+use App\Compilers\BladeCompiler;
+use Illuminate\View\DynamicComponent;
 use Illuminate\View\ViewServiceProvider as ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
 {
     /**
+     * 編譯器
      * Register the Blade compiler implementation.
      *
      * @return void
@@ -15,7 +15,9 @@ class ViewServiceProvider extends ServiceProvider
     public function registerBladeCompiler()
     {
         $this->app->singleton('blade.compiler', function ($app) {
-            return new BladeCompiler($app['files'], $app['config']['view.compiled']);
+            return tap(new BladeCompiler($app['files'], $app['config']['view.compiled']), function ($blade) {
+                $blade->component('dynamic-component', DynamicComponent::class);
+            });
         });
     }
 }

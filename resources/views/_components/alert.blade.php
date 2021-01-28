@@ -2,6 +2,6 @@
 
 @props(['type', 'message'])
 
-<div {{ $attributes->merge(['class' => 'alert alert-'.$type]) }}>
+<div {{ $attributes->merge(['class' => 'alert alert-'.$type ?? null]) }}>
     {{ $message }}
 </div>

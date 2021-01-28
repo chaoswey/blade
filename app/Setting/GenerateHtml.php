@@ -3,8 +3,7 @@
 namespace App\Setting;
 
 use App\Builders\Blade;
-use Illuminate\Container\Container;
-use Illuminate\Filesystem\Filesystem;
+use App\Builders\Path;
 use Illuminate\Support\Str;
 
 class GenerateHtml
@@ -24,27 +23,27 @@ class GenerateHtml
      */
     private $root;
 
-    public function __construct($views, $cache)
+    /**
+     *
+     */
+    private $container;
+
+    public function __construct($views, $cache, $request, $container)
     {
-        $this->request = \App\Component\Request::getInstance();
-        $this->filesystem = new Filesystem();
-        $this->root = dirname(dirname(__DIR__));
+        $this->request = $request;
+        $this->container = $container;
+        $this->filesystem = $container['files'];
+        $this->root = Path::root_path();
 
         $this->builder($views, $cache);
     }
 
     protected function builder($views, $cache)
     {
-        $source = $this->request->get('dir') != '' ? $this->request->get('dir') : $this->root . '/html';
-        $target = $this->getPath($source);
+        $source = $this->request->get('dir') != '' ? $this->request->get('dir') : $this->root.'/html';
+        $target = Path::os($source);
         $clear = $this->request->get('clear', false);
-
-        try {
-            $this->makeDirectory($target);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
-        }
-
+        $this->makeDirectory($target);
         if ($clear) {
             $this->clearTargetDir($target);
         }
@@ -53,18 +52,20 @@ class GenerateHtml
 
         $this->replaceUrl();
 
-        $this->generatorHtml($views, $cache, $this->root, $target);
+        $this->generatorHtml($views, $cache, $target);
     }
 
-    private function ignore($root, $views, $files)
+    private function ignore($views, $files)
     {
         $allfiles = [];
-        $config = require $root . '/app/config.php';
-        $ignores = $config['ignore'];
+        $config = $this->container['app_config'];
+        $ignores = array_merge($config['ignore'], [$config['guess']], $config['components']);
+
         foreach ($files as $file) {
             $is_ignore = false;
             foreach ($ignores as $ignore) {
-                if (Str::is($this->getPath($views . '/' . trim(trim($ignore), '/')), $file)) {
+                $path = $views.'/'.trim(trim(trim($ignore), '/'), '*').'*';
+                if (Str::is(Path::os($path), $file)) {
                     $is_ignore = true;
                 }
             }
@@ -72,21 +73,22 @@ class GenerateHtml
                 $allfiles[] = $file;
             }
         }
+
         return $allfiles;
     }
 
-    private function generatorHtml($views, $cache, $root, $path)
+    private function generatorHtml($views, $cache, $path)
     {
-        $views = $this->getPath($views);
-        $cache = $this->getPath($cache);
-        $blade = new Blade($views, $cache, Container::getInstance());
+        $views = Path::os($views);
+        $cache = Path::os($cache);
+        $blade = new Blade($views, $cache, $this->container);
 
         $files = $this->filesystem->allFiles($views);
-        $files = $this->ignore($root, $views, $files);
+        $files = $this->ignore($views, $files);
 
         foreach ($files as $file) {
             $target = $this->path_replace($views, $path, $file);
-            $file = str_replace([$this->getPath($views . "/"), ".blade.php"], "", $file);
+            $file = str_replace([Path::os($views."/"), ".blade.php"], "", $file);
             $html = $blade->make($file)->render();
             $this->generate($target, $html);
         }
@@ -94,7 +96,7 @@ class GenerateHtml
 
     private function generate($target, $html)
     {
-        $path = pathinfo($target)['dirname'];
+        $path = pathinfo($target, PATHINFO_DIRNAME);
         $this->makeDirectory($path);
         $target = str_replace(".blade.php", ".html", $target);
         $this->filesystem->put($target, $html);
@@ -102,18 +104,18 @@ class GenerateHtml
 
     private function copyPublicAllFiles($root, $path)
     {
-        $public = $this->getPath($root . '/public');
+        $public = Path::os($root.'/public');
         $files = $this->filesystem->allFiles($public);
 
         foreach ($files as $file) {
             $target = $this->path_replace($public, $path, $file);
-            $this->copy($this->getPath($file), $this->getPath($target));
+            $this->copy(Path::os($file), Path::os($target));
         }
     }
 
     private function copy($file, $target)
     {
-        $path = pathinfo($target)['dirname'];
+        $path = pathinfo($target, PATHINFO_DIRNAME);
         $this->makeDirectory($path);
         try {
             $this->filesystem->copy($file, $target);
@@ -138,19 +140,10 @@ class GenerateHtml
         return str_replace($search, $path, $string);
     }
 
-    private function getPath($path)
-    {
-        return windows_os() ? str_replace('/', '\\', $path) : $path;
-    }
-
     private function makeDirectory($target)
     {
-        try {
-            if (!$this->filesystem->isDirectory($target)) {
-                $this->filesystem->makeDirectory($target, 0777, true);
-            }
-        } catch (\Exception $e) {
-            throw new \Exception("make target dir fail. error msg:" . $e->getMessage());
+        if (!$this->filesystem->isDirectory($target)) {
+            $this->filesystem->makeDirectory($target, 0777, true);
         }
     }
 }
