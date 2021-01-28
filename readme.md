@@ -1,5 +1,5 @@
 # cc blade #
-    
+
 # 說明
 
 此專案給後端是 **laravel** 前端工程師 or 網頁設計師 使用
@@ -24,11 +24,11 @@
 
 > 沒有使用 `npm run serve`
 
->> 網址將會是 **http://localhost/index.php/you dir/xxx**, **http://localhost/index.php/you dir/blog/xxx**
+> > 網址將會是 **http://localhost/index.php/you dir/xxx**, **http://localhost/index.php/you dir/blog/xxx**
 
 > 有使用 `npm run serve`
 
->> 或者 **http://localhost:8088/index.php/xxx**, **http://localhost/index.php/blog/xxx**
+> > 或者 **http://localhost:8088/index.php/xxx**, **http://localhost/index.php/blog/xxx**
 
 ## 建議使用方式
 
@@ -95,7 +95,6 @@ Apache 設定 `AllowOverride All`
 |vendor|核心程式|
 |resources|<ul><li>- style、js、img 原始碼</li><li>- views: blade.php</li></ul>|
 
-
 ## require package
 
 |套件名稱|作用|網址|
@@ -103,11 +102,12 @@ Apache 設定 `AllowOverride All`
 |symfony/http-foundation|http-foundation 套件|https://github.com/symfony/http-foundation|
 |symfony/var-dumper|dd指令|https://github.com/symfony/var-dumper|
 |filp/whoops|錯誤收集|https://github.com/filp/whoops|
-
+|intervention/image|圖像處理|https://github.com/Intervention/image|
 
 ----
 
 ## 如何載入 style、js、img
+
 ```php
     <link href="{{ asset('styles/bootstrap.min.css') }}" rel="stylesheet">
     <script src="{{ asset('scripts/bootstrap.min.js') }}"></script>
@@ -115,6 +115,7 @@ Apache 設定 `AllowOverride All`
 ```
 
 ## 如何使用連結
+
 ```php
     <a href="{{ url('/') }}">首頁</a>
 ```
@@ -128,6 +129,7 @@ Ajax
 ```
 
 ----
+
 ## Request
 
 ### url_is(url, Class Name)
@@ -148,6 +150,44 @@ Ajax
 
 ```
 <li><a href="{{ url("project/contact") }}" class="{{ url_is("project/contact", "active") }}">contact</a></li>
+```
+
+## imageHelper
+
+imageHelper(路徑, 格式, 寬, 高);
+
+除了路徑 以外皆可為空
+
+使用方式如下:
+
+轉換格式跟縮圖
+
+```html
+<img src="{{ imageHelper('images/index.jpg', 'webp', 100, 100) }}" alt="">
+```
+
+轉換格式
+
+```html
+<img src="{{ imageHelper('images/index.jpg', 'webp') }}" alt="">
+```
+
+縮圖
+
+```html
+<img src="{{ imageHelper('images/index.jpg', null, 100, 100) }}" alt="">
+```
+
+依寬度等比例縮圖
+
+```html
+<img src="{{ imageHelper('images/index.jpg', null, 100) }}" alt="">
+```
+
+依高度等比例縮圖 跟轉換格式
+
+```html
+<img src="{{ imageHelper('images/index.jpg', 'webp', null, 100) }}" alt="">
 ```
 
 ## Enums 列舉
@@ -197,7 +237,6 @@ if (mix.inProduction()) {
 ```
 
 會自動 找尋 `mix-manifest.json` 內容更新版本號碼
-
 
 ## 輸出成 html
 

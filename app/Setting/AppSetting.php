@@ -66,7 +66,7 @@ class AppSetting
 
     public function response()
     {
-        $path = Path::os(dirname(__DIR__, 2).'/storage/setting');
+        $path = Path::storage_path('setting');
         $blade = new Blade($path, $this->cache, $this->container);
         return new Response($blade->make('index')->render(), Response::HTTP_OK, ['content-type' => 'text/html']);
     }

@@ -84,3 +84,10 @@ if (!function_exists('auth')) {
         return app(Illuminate\Contracts\Auth\Factory::class)->guard($guard);
     }
 }
+if (!function_exists('imageHelper')) {
+    function imageHelper(string $path = null, string $format = null, ?int $width = null, ?int $height = null): ?string
+    {
+        $target = new \App\Builders\Image($path, $format, $width, $height);
+        return !empty($target) ? asset($target): null;
+    }
+}

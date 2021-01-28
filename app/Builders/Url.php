@@ -32,7 +32,7 @@ class Url
     public function asset($content = null): string
     {
         $filesystem = new Filesystem();
-        $target = \App\Builders\Path::os(dirname(__DIR__, 2)."/mix-manifest.json");
+        $target = \App\Builders\Path::root_path('mix-manifest.json');
         if ($filesystem->exists($target)) {
             $manifest = json_decode($filesystem->get($target));
             $ver = "/public/".trim(trim($content), "/");

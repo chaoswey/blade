@@ -4,7 +4,6 @@ namespace App\Setting;
 
 use App\Builders\Blade;
 use App\Builders\Path;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
 class GenerateHtml
@@ -34,7 +33,7 @@ class GenerateHtml
         $this->request = $request;
         $this->container = $container;
         $this->filesystem = $container['files'];
-        $this->root = dirname(__DIR__, 2);
+        $this->root = Path::root_path();
 
         $this->builder($views, $cache);
     }

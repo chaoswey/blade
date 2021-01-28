@@ -17,6 +17,8 @@
   7. 移除 cc 指令
   
   8. 增加 Enums
+  
+  9. 增加 imageHelper
 
 * 4.2.0
 
