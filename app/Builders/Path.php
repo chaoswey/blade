@@ -9,7 +9,7 @@ class Path
     public function __construct()
     {
         if (empty(static::$root)) {
-            static::$root = Str::start(Str::finish(dirname(__DIR__, 2), '/'), '/');
+            static::$root = realpath(dirname(__DIR__, 2));
         }
     }
 
