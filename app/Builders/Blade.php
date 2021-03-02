@@ -100,7 +100,7 @@ class Blade implements FactoryContract
     protected function setupContainer(array $viewPaths, string $cachePath)
     {
         $this->container->bindIf('config', function () use ($viewPaths, $cachePath) {
-            return ['view.paths' => \App\Builders\Path::os($viewPaths), 'view.compiled' => \App\Builders\Path::os($cachePath)];
+            return ['view.paths' => $viewPaths, 'view.compiled' => $cachePath];
         }, true);
     }
 }
